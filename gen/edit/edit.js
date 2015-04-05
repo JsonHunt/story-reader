@@ -4,7 +4,7 @@
 
   storyParser = require('./story-parser');
 
-  module.exports = EditController = function($scope, $location, $routeParams) {
+  module.exports = EditController = function($scope, $location, $routeParams, $timeout) {
     var id, lastID;
     $('input.title').hide();
     $('.story').hide();
@@ -96,10 +96,12 @@
           break;
         }
       }
-      return $scope.goto('home');
+      return $timeout(function() {
+        return $scope.goto('home');
+      }, 100);
     };
   };
 
-  EditController.$inject = ['$scope', '$location', '$routeParams'];
+  EditController.$inject = ['$scope', '$location', '$routeParams', '$timeout'];
 
 }).call(this);

@@ -1,6 +1,6 @@
 storyParser = require './story-parser'
 
-module.exports = EditController = ($scope, $location, $routeParams) ->
+module.exports = EditController = ($scope, $location, $routeParams,$timeout) ->
 
 	$('input.title').hide()
 	$('.story').hide()
@@ -80,7 +80,10 @@ module.exports = EditController = ($scope, $location, $routeParams) ->
 				$scope.stories.splice i,1
 				window.localStorage.setItem 'stories', JSON.stringify($scope.stories)
 				break
-		$scope.goto 'home'
+
+		$timeout ()->
+			$scope.goto 'home'
+		,100
 
 
-EditController.$inject = [ '$scope','$location', '$routeParams']
+EditController.$inject = [ '$scope','$location', '$routeParams','$timeout']

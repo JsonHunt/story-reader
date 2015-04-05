@@ -7,7 +7,7 @@
 		.list
 			.item(
 				ng-repeat="s in stories track by $index"
-				tap="selectStory(s)"
+				ng-click="selectStory(s)"
 			)
 				.title {{s.title}}
 

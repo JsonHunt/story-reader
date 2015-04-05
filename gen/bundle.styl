@@ -7,6 +7,7 @@ fle
 
 html
 	height 100%
+	background-color black
 
 body
 	padding 0
@@ -145,8 +146,9 @@ input[type='text'], textarea
 		transform scale(0.8)
 
 .page
-	background-image url("img/sky.jpg")
-	background-size cover
+	// background-image url("img/sky.jpg")
+	// background-size cover
+	background-color black
 
 .home.page
 	.note
@@ -156,127 +158,8 @@ input[type='text'], textarea
 		padding 20px 25px
 
 
-.manage.page
-	flex 1
-	display flex
-	flex-direction column
-	.list
-		flex 1
-
-	i.fa.back-button
-		color white
-
-	i.fa
-		color: $dark
-
-	.icon.delete i
-		color: red
-
-	i.fa-play
-		transform scale(0.8)
-		position relative
-		left 3px
-	i.fa-stop
-		transform scale(0.8)
-		// position relative
-		// left 3px
-
-.record.page
-
-	.note
-		visibility: hidden
-
-	.recarea
-		display flex
-		flex-direction row
-		flex 1
-
-	
-
-	.record, .stop
-		color: $medium
-		margin auto
-		transform scale(4)
-
-	.save, .play
-		color: green
-		margin auto
-		transform scale(2)
-		visibility: hidden
-		z-index 1000
-		// position: relative
-		// top: -10px
-
-	.input-error
-		padding 10px
-		height 50px
-		margin 10px
-		margin-top 0
-		margin-bottom 40px
-		color red
-		border 1px solid red
-		text-align center
-		visibility hidden
-
-	.visible
-		visibility visible
-
 .recording.page
 	color white
-
-.session.page
-
-	.in-progress
-		background-color green
-		color white
-		padding 10px
-		margin 10px
-		text-align center
-
-	.no-power
-		border 1px solid red
-		background-color red
-		color	white
-		padding 10px
-		margin 10px
-		text-align center
-
-	.lbl
-		background-color $verydark
-		padding 10px
-		color white
-
-	.delay, .duration
-		display flex
-		align-content center
-		align-items center
-		background-color $dark
-		>.button
-			flex 1
-			padding: 15px 0
-			border-left: 1px solid $verydark
-			text-align center
-		>.button.active
-			background-color $medium
-		>.button:first-child
-			border-left: none
-
-	.start
-		color: $medium
-		margin auto
-		transform scale(3)
-
-	.stop
-		color: $medium
-		margin auto
-		transform scale(4)
-
-	.fa.fa-play
-		position relative
-		left 3px
-
-	.fa.fa-stop
-		transform scale(0.8)
 
 .story.page
 	

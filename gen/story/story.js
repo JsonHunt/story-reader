@@ -85,7 +85,7 @@
       $scope.playing = word.toLowerCase();
       $scope.media = new Media(filename, function(success) {
         return $scope.$apply(function() {
-          if ($scope.playing === word) {
+          if ($scope.playing === word.toLowerCase()) {
             $scope.playing = void 0;
             return $scope.media.release();
           }

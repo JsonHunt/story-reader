@@ -73,7 +73,7 @@ module.exports = StoryController = ($scope, $location, $routeParams, $timeout) -
 			filename
 			(success)->
 				$scope.$apply ()->
-					if $scope.playing is word
+					if $scope.playing is word.toLowerCase()
 						$scope.playing = undefined
 						$scope.media.release()
 			(error)->
