@@ -6,7 +6,7 @@
   <div class="body">
     <div ng-show="stories.length == 0" class="note">SORRY, NO STORY</div>
     <div class="list">
-      <div ng-repeat="s in stories track by $index" tap="selectStory($index)" class="item">
+      <div ng-repeat="s in stories track by $index" tap="selectStory(s)" class="item">
         <div class="title">{{s.title}}</div>
       </div>
     </div>

@@ -21,7 +21,7 @@ module.exports = EditController = ($scope, $location, $routeParams) ->
 		lastID = window.localStorage.getItem 'lastID'
 		lastID ?= 0
 		$scope.story =
-			id: lastID+1
+			id: parseInt(lastID)+1
 
 	console.log "STORY ID: #{$scope.story.id}"
 
@@ -42,6 +42,7 @@ module.exports = EditController = ($scope, $location, $routeParams) ->
 			for w in titlearr
 				title += S(w).capitalize().s + " "
 
+			$scope.story.id = parseInt($scope.story.id)
 			$scope.story.title = S(title).trim().s
 
 		text = $scope.story.text
@@ -66,9 +67,7 @@ module.exports = EditController = ($scope, $location, $routeParams) ->
 		window.localStorage.setItem 'stories', JSON.stringify($scope.stories)
 		window.localStorage.setItem 'words', JSON.stringify($scope.allWords)
 		window.localStorage.setItem 'lastID', $scope.story.id
-		for s,i in $scope.stories
-			if s.id is $scope.story.id
-				$location.path "story?id=#{i}&opt=1&rec=1"
+		$location.path "story/#{$scope.story.id}/1/1"
 
 	$scope.delete = ()->
 		id = parseInt $routeParams.id

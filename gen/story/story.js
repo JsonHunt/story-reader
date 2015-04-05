@@ -3,21 +3,20 @@
   var StoryController;
 
   module.exports = StoryController = function($scope, $location, $routeParams, $timeout) {
-    var opts, punctuation, _base;
-    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory + 'story-reader-files', function(fileEntry) {
-      $scope.folderPath = fileEntry.toURL();
-      return console.log("Folder path : " + $scope.folderPath);
+    var punctuation, _base;
+    console.log($routeParams.id);
+    $scope.story = _.find($scope.stories, function(s) {
+      return parseInt(s.id) === parseInt($routeParams.id);
     });
-    $scope.story = $scope.stories[$routeParams.id];
+    console.log(JSON.stringify($scope.story));
     if ((_base = $scope.story).sentences == null) {
       _base.sentences = [];
     }
     $scope.isEnd = $scope.sentenceIndex === $scope.story.sentences.length - 1;
     $scope.isStart = true;
-    opts = $location.search();
     $scope.capOp = window.localStorage.getItem('caps');
-    $scope.recOn = opts.rec;
-    $scope.showOptions = opts.opt;
+    $scope.recOn = $routeParams.rec;
+    $scope.showOptions = $routeParams.opt;
     punctuation = [',', '...', '!', '?', ';', '.', ':', '"'];
     if ($scope.story.sentences.length > 0) {
       $scope.sentenceIndex = 0;
@@ -83,7 +82,7 @@
       $scope.stop();
       filename = $scope.folderPath + ("/" + word + ".mp3");
       console.log("Playing: " + filename);
-      $scope.playing = word;
+      $scope.playing = word.toLowerCase();
       $scope.media = new Media(filename, function(success) {
         return $scope.$apply(function() {
           if ($scope.playing === word) {

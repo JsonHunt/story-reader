@@ -27,7 +27,7 @@
         lastID = 0;
       }
       $scope.story = {
-        id: lastID + 1
+        id: parseInt(lastID) + 1
       };
     }
     console.log("STORY ID: " + $scope.story.id);
@@ -38,7 +38,7 @@
       return $('.story').blur();
     };
     $scope.save = function() {
-      var i, result, s, text, title, titlearr, w, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _results;
+      var result, s, text, title, titlearr, w, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
       title = $scope.story.title;
       if (!title || title.length === 0) {
         $scope.error = "Title is required";
@@ -50,6 +50,7 @@
           w = titlearr[_i];
           title += S(w).capitalize().s + " ";
         }
+        $scope.story.id = parseInt($scope.story.id);
         $scope.story.title = S(title).trim().s;
       }
       text = $scope.story.text;
@@ -77,17 +78,7 @@
       window.localStorage.setItem('stories', JSON.stringify($scope.stories));
       window.localStorage.setItem('words', JSON.stringify($scope.allWords));
       window.localStorage.setItem('lastID', $scope.story.id);
-      _ref2 = $scope.stories;
-      _results = [];
-      for (i = _l = 0, _len3 = _ref2.length; _l < _len3; i = ++_l) {
-        s = _ref2[i];
-        if (s.id === $scope.story.id) {
-          _results.push($location.path("story?id=" + i + "&opt=1&rec=1"));
-        } else {
-          _results.push(void 0);
-        }
-      }
-      return _results;
+      return $location.path("story/" + $scope.story.id + "/1/1");
     };
     return $scope["delete"] = function() {
       var i, s, _i, _len, _ref;

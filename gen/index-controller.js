@@ -9,6 +9,10 @@
       storiesString = JSON.stringify([]);
     }
     $scope.stories = JSON.parse(storiesString);
+    $scope.stories = _.filter($scope.stories, function(s) {
+      return s.id;
+    });
+    console.log(JSON.stringify($scope.stories));
     wordsString = window.localStorage.getItem("words");
     if (wordsString == null) {
       wordsString = JSON.stringify([]);
@@ -31,12 +35,10 @@
       return window.history.back();
     };
     $cordovaFile.checkDir(cordova.file.externalDataDirectory, "story-reader-files").then(function(success) {
-      console.log("story-reader-files folder exists");
       return $scope.checkFiles();
     }, function(error) {
       if (error.message === 'NOT_FOUND_ERR') {
         return $cordovaFile.createDir(cordova.file.externalDataDirectory, "story-reader-files").then(function(success) {
-          console.log("Created story-reader-files folder");
           return $scope.checkFiles();
         }, function(error) {
           return console.log("Error: " + error);
@@ -49,12 +51,10 @@
     return $scope.checkFiles = function() {
       return window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory + 'story-reader-files', function(fileEntry) {
         $scope.folderPath = fileEntry.toURL();
-        console.log("Folder path : " + $scope.folderPath);
         return async.each($scope.allWords, function(w, cb) {
           var path;
           path = "story-reader-files/" + w + ".mp3";
           return $cordovaFile.checkFile(cordova.file.externalDataDirectory, path).then(function(success) {
-            console.log("Found file: " + JSON.stringify(success));
             $scope.recordings[w.toLowerCase()] = success;
             return cb();
           }, function(error) {
@@ -62,9 +62,8 @@
           });
         }, function(err) {
           if (err) {
-            console.log(err);
+            return console.log(err);
           }
-          return console.log("Checked all words");
         });
       }, function(error) {
         return console.log("Error getting folder URL : " + JSON.stringify(error));

@@ -24,7 +24,7 @@
       return $routeProvider.when('/', {
         controller: require('./home/home'),
         templateUrl: 'home/home.html'
-      }).when('/story/:id', {
+      }).when('/story/:id/:opt?/:rec?', {
         controller: require('./story/story'),
         templateUrl: 'story/story.html'
       }).when('/edit/:id', {
@@ -118,7 +118,7 @@
         lastID = 0;
       }
       $scope.story = {
-        id: lastID + 1
+        id: parseInt(lastID) + 1
       };
     }
     console.log("STORY ID: " + $scope.story.id);
@@ -129,7 +129,7 @@
       return $('.story').blur();
     };
     $scope.save = function() {
-      var i, result, s, text, title, titlearr, w, _i, _j, _k, _l, _len, _len1, _len2, _len3, _ref, _ref1, _ref2, _results;
+      var result, s, text, title, titlearr, w, _i, _j, _k, _len, _len1, _len2, _ref, _ref1;
       title = $scope.story.title;
       if (!title || title.length === 0) {
         $scope.error = "Title is required";
@@ -141,6 +141,7 @@
           w = titlearr[_i];
           title += S(w).capitalize().s + " ";
         }
+        $scope.story.id = parseInt($scope.story.id);
         $scope.story.title = S(title).trim().s;
       }
       text = $scope.story.text;
@@ -168,17 +169,7 @@
       window.localStorage.setItem('stories', JSON.stringify($scope.stories));
       window.localStorage.setItem('words', JSON.stringify($scope.allWords));
       window.localStorage.setItem('lastID', $scope.story.id);
-      _ref2 = $scope.stories;
-      _results = [];
-      for (i = _l = 0, _len3 = _ref2.length; _l < _len3; i = ++_l) {
-        s = _ref2[i];
-        if (s.id === $scope.story.id) {
-          _results.push($location.path("story/" + i + "?opt=1&rec=1"));
-        } else {
-          _results.push(void 0);
-        }
-      }
-      return _results;
+      return $location.path("story/" + $scope.story.id + "/1/1");
     };
     return $scope["delete"] = function() {
       var i, s, _i, _len, _ref;
@@ -270,8 +261,8 @@
   var HomeController;
 
   module.exports = HomeController = function($scope) {
-    $scope.selectStory = function(index) {
-      return $scope.goto("story/" + index);
+    $scope.selectStory = function(s) {
+      return $scope.goto("story/" + s.id);
     };
     return $scope.newStory = function() {
       return $scope.goto("edit/0");
@@ -294,6 +285,10 @@
       storiesString = JSON.stringify([]);
     }
     $scope.stories = JSON.parse(storiesString);
+    $scope.stories = _.filter($scope.stories, function(s) {
+      return s.id;
+    });
+    console.log(JSON.stringify($scope.stories));
     wordsString = window.localStorage.getItem("words");
     if (wordsString == null) {
       wordsString = JSON.stringify([]);
@@ -316,12 +311,10 @@
       return window.history.back();
     };
     $cordovaFile.checkDir(cordova.file.externalDataDirectory, "story-reader-files").then(function(success) {
-      console.log("story-reader-files folder exists");
       return $scope.checkFiles();
     }, function(error) {
       if (error.message === 'NOT_FOUND_ERR') {
         return $cordovaFile.createDir(cordova.file.externalDataDirectory, "story-reader-files").then(function(success) {
-          console.log("Created story-reader-files folder");
           return $scope.checkFiles();
         }, function(error) {
           return console.log("Error: " + error);
@@ -334,12 +327,10 @@
     return $scope.checkFiles = function() {
       return window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory + 'story-reader-files', function(fileEntry) {
         $scope.folderPath = fileEntry.toURL();
-        console.log("Folder path : " + $scope.folderPath);
         return async.each($scope.allWords, function(w, cb) {
           var path;
           path = "story-reader-files/" + w + ".mp3";
           return $cordovaFile.checkFile(cordova.file.externalDataDirectory, path).then(function(success) {
-            console.log("Found file: " + JSON.stringify(success));
             $scope.recordings[w.toLowerCase()] = success;
             return cb();
           }, function(error) {
@@ -347,9 +338,8 @@
           });
         }, function(err) {
           if (err) {
-            console.log(err);
+            return console.log(err);
           }
-          return console.log("Checked all words");
         });
       }, function(error) {
         return console.log("Error getting folder URL : " + JSON.stringify(error));
@@ -435,21 +425,20 @@
   var StoryController;
 
   module.exports = StoryController = function($scope, $location, $routeParams, $timeout) {
-    var opts, punctuation, _base;
-    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory + 'story-reader-files', function(fileEntry) {
-      $scope.folderPath = fileEntry.toURL();
-      return console.log("Folder path : " + $scope.folderPath);
+    var punctuation, _base;
+    console.log($routeParams.id);
+    $scope.story = _.find($scope.stories, function(s) {
+      return parseInt(s.id) === parseInt($routeParams.id);
     });
-    $scope.story = $scope.stories[$routeParams.id];
+    console.log(JSON.stringify($scope.story));
     if ((_base = $scope.story).sentences == null) {
       _base.sentences = [];
     }
     $scope.isEnd = $scope.sentenceIndex === $scope.story.sentences.length - 1;
     $scope.isStart = true;
-    opts = $location.search();
     $scope.capOp = window.localStorage.getItem('caps');
-    $scope.recOn = opts.rec;
-    $scope.showOptions = opts.opt;
+    $scope.recOn = $routeParams.rec;
+    $scope.showOptions = $routeParams.opt;
     punctuation = [',', '...', '!', '?', ';', '.', ':', '"'];
     if ($scope.story.sentences.length > 0) {
       $scope.sentenceIndex = 0;
@@ -515,7 +504,7 @@
       $scope.stop();
       filename = $scope.folderPath + ("/" + word + ".mp3");
       console.log("Playing: " + filename);
-      $scope.playing = word;
+      $scope.playing = word.toLowerCase();
       $scope.media = new Media(filename, function(success) {
         return $scope.$apply(function() {
           if ($scope.playing === word) {

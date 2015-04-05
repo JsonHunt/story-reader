@@ -23,7 +23,7 @@
       return $routeProvider.when('/', {
         controller: require('./home/home'),
         templateUrl: 'home/home.html'
-      }).when('/story/:id', {
+      }).when('/story/:id/:opt?/:rec?', {
         controller: require('./story/story'),
         templateUrl: 'story/story.html'
       }).when('/edit/:id', {

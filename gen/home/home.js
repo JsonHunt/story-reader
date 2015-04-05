@@ -4,7 +4,7 @@
 
   module.exports = HomeController = function($scope) {
     $scope.selectStory = function(s) {
-      return $scope.goto("story?id=" + s.id);
+      return $scope.goto("story/" + s.id);
     };
     return $scope.newStory = function() {
       return $scope.goto("edit/0");

@@ -1,18 +1,15 @@
 module.exports = StoryController = ($scope, $location, $routeParams, $timeout) ->
 
-	window.resolveLocalFileSystemURL cordova.file.externalDataDirectory + 'story-reader-files', (fileEntry)->
-		$scope.folderPath = fileEntry.toURL()
-		console.log "Folder path : #{$scope.folderPath}"
-
-	$scope.story = $scope.stories[$routeParams.id]
+	console.log $routeParams.id
+	$scope.story = _.find $scope.stories, (s)-> parseInt(s.id) is parseInt($routeParams.id)
+	console.log JSON.stringify($scope.story)
 	$scope.story.sentences ?= []
 	$scope.isEnd = $scope.sentenceIndex == $scope.story.sentences.length - 1
 	$scope.isStart = true
 
-	opts = $location.search()
 	$scope.capOp = window.localStorage.getItem('caps')
-	$scope.recOn = opts.rec
-	$scope.showOptions = opts.opt
+	$scope.recOn = $routeParams.rec
+	$scope.showOptions = $routeParams.opt
 
 	punctuation = [',','...','!','?',';','.',':','"']
 
@@ -71,7 +68,7 @@ module.exports = StoryController = ($scope, $location, $routeParams, $timeout) -
 
 		filename = $scope.folderPath + "/#{word}.mp3"
 		console.log "Playing: " + filename
-		$scope.playing = word
+		$scope.playing = word.toLowerCase()
 		$scope.media = new Media(
 			filename
 			(success)->
