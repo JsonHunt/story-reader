@@ -1,0 +1,25 @@
+
+<div class="session page">
+  <div class="header"><i tap="back()" class="fa fa-chevron-left back-button"></i>
+    <div class="title">SESSION</div>
+  </div>
+  <div class="body">
+    <div ng-show="!playing">
+      <div class="lbl">Delay (minutes)</div>
+      <div class="delay">
+        <div ng-repeat="d in delays" tap="setDelay(d)" ng-class="{active: d == delay}" class="button">{{d}}</div>
+      </div>
+      <div class="lbl">Duration (hours)</div>
+      <div class="duration">
+        <div ng-repeat="du in durations" tap="setDuration(du)" ng-class="{active: du == duration}" class="button">{{du}}</div>
+      </div>
+    </div>
+    <div ng-show="playing &amp;&amp; notcharging" class="no-power"> 
+      <div>Your device is not charging!</div>
+      <div>Please connect it to power source</div>
+    </div>
+    <div ng-show="playing" class="in-progress"> 
+      <div>SESSION IN PROGRESS</div>
+    </div><span ng-show="!playing" tap="start()" class="start fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-play fa-stack-1x"></i></span><span ng-show="playing" tap="stop()" class="stop fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-stop fa-stack-1x"></i></span>
+  </div>
+</div>

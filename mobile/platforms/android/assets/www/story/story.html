@@ -1,0 +1,14 @@
+
+<div class="story page">
+  <div class="header"><i tap="back()" class="left icon fa fa-chevron-left"></i>
+    <div tap="showOptions = !showOptions" class="title">{{story.title}}</div>
+  </div>
+  <div ng-show="showOptions" class="header header2">
+    <div tap="toggleCaps()" class="right icon">{{capOn ? 'Abc' : 'ABC'}}</div><i ng-class="{active: recOn}" tap="toggleRecording()" class="right icon fa fa-microphone"></i><i tap="edit()" class="right icon fa fa-edit"></i>
+  </div>
+  <div ng-swipe-left="nextSentence()" ng-swipe-right="prevSentence()" class="body">
+    <div ng-show="sentence">
+      <div class="sentence"><span ng-repeat="word in sentence.words track by $index" tap="select(word)"><span ng-class="{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}" style="color: {{recOn &amp;&amp; recordings[word.toLowerCase()] ? 'green' : 'white'}}" class="word">{{word}}</span><span>&nbsp;</span></span></div>
+    </div>
+  </div>
+</div>

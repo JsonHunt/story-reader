@@ -1,0 +1,14 @@
+
+<div class="home page">
+  <div class="header">
+    <div class="title">STORY READER</div><i tap="newStory()" class="right icon new-story fa fa-plus"></i>
+  </div>
+  <div class="body">
+    <div ng-show="stories.length == 0" class="note">SORRY, NO STORY</div>
+    <div class="list">
+      <div ng-repeat="s in stories track by $index" tap="selectStory(s)" class="item">
+        <div class="title">{{s.title}}</div>
+      </div>
+    </div>
+  </div>
+</div>

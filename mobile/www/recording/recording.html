@@ -1,0 +1,19 @@
+
+<div class="recording page">
+  <div class="header"><i tap="continue()" class="left icon fa fa-chevron-left back-button"></i>
+    <div class="title">WORD RECORDING</div>
+  </div>
+  <div class="body">
+    <div class="list">
+      <div ng-repeat="word in allWords track by $index" class="item">
+        <div class="text">{{word}}</div>
+        <div ng-hide="word === playing || !recordings[word]" tap="play(word,$index)" class="icon"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-play fa-stack-1x"></i></span></div>
+        <div ng-show="word === playing || word === recording" tap="stop()" class="icon"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-stop fa-stack-1x"></i></span></div>
+        <div ng-hide="word === recording" tap="record(word,$index)" class="icon record"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-microphone fa-stack-1x"></i></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div tap="continue()" class="finish-recording button">Done</div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+div.recording.screen
+	div.title WORD RECORDING
+	div.content
+		table.word-list 
+			tr(ng-repeat='word in allWords')
+				td.word {{word}}
+				td(width="60px" ng-show='recording || playing')
+					i.fa.fa-2x.fa-fw.fa-circle( style="color: #FF0000" ng-show='recording')
+					i.fa.fa-2x.fa-fw.fa-volume-up( ng-show='playing')
+
+				td( width="60px" ng-hide='recording || playing' ng-click='record(word)')
+					i.fa.fa-2x.fa-fw.fa-microphone
+
+				td( width="60px" ng-hide='recording || playing' ng-click='play(word)')
+					i.fa.fa-2x.fa-fw.fa-play
+
+				td( width="60px" ng-show='recording || playing' ng-click='stop()')
+					i.fa.fa-2x.fa-fw.fa-stop
+
+	button.finish-recording.button(ng-click='continue()') Done

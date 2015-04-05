@@ -1,0 +1,122 @@
+$light = #80c6fc
+$medium = #42adff
+$dark = #0991f9
+$verydark = #023E70
+
+fle
+
+html
+	height 100%
+
+body
+	padding 0
+	margin 0
+	height 100%
+	display flex
+	flex-direction column
+	background-color black
+	font-size 20px
+	overflow-y: auto
+
+input[type='text'], textarea
+	padding 10px 15px
+	border-radius 2px
+	border 1px solid $medium
+	margin 10px
+	margin-bottom 0
+	background-color $verydark
+	color white
+
+.note
+	padding 20px
+	text-align center
+	color $dark
+	text-transform uppercase
+
+.list
+	overflow-y auto
+	>.item
+		border-bottom 1px solid $medium
+		cursor default
+		display flex
+		.text
+			flex 1
+			display flex
+			align-items center
+			padding 10px
+			color white
+		.icon
+			padding 10px
+
+
+.noselect
+	-webkit-touch-callout: none
+	user-select: none
+
+.appheader
+
+	background-color $dark
+	padding 10px
+	display none
+	align-items center
+	justify-content center
+	border-bottom $dark
+	.title
+		font-weight bold
+		color white
+
+.appcontent
+	flex 1 1
+	display flex
+	flex-direction column
+	>.page
+		flex 1
+		display flex
+		flex-direction column
+		>.header
+			background-color $dark
+			color white
+			font-weight bold
+			text-transform uppercase
+			display flex
+			align-items center
+			>.icon
+				padding 0 25px
+				color white
+				display flex
+				align-items center
+				align-self stretch
+			>.left.icon
+				border-right 1px solid $verydark
+			>.right.icon
+				border-left 1px solid $verydark
+			>.title
+				flex 1
+				padding 15px 20px
+		>.header2
+			min-height 50px
+			border-top 1px solid $verydark
+			justify-content flex-end
+			text-transform: none
+		>.body
+			flex 1
+			display flex
+			flex-direction column
+
+		>.footer
+			padding 10px
+			border-top 1px solid $dark
+
+.button
+	background-color $dark
+	border-radius 4px
+	padding 20px
+	text-align center
+	color	white
+
+.form.center
+	margin auto
+	width 500px
+	padding: 10px
+	border: 1px solid #ccc
+	background-color: #ddd

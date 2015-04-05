@@ -1,0 +1,23 @@
+{
+  "name": "mobile-app-scaffolding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --debug --watch gen ./bin/www"
+  },
+  "dependencies": {
+    "string": "^3.1.1",
+    "underscore": "^1.8.3"
+  },
+  "author": "Json Hunt <Json.Hunt@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer-core": "^5.1.8",
+    "gulp": "^3.8.11",
+    "gulp-postcss": "^5.0.0",
+    "gulp-sourcemaps": "^1.5.1",
+    "sinon": "^1.14.1"
+  }
+}

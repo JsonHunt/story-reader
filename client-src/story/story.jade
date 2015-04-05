@@ -1,0 +1,16 @@
+div.story.screen
+	div.title {{story.title}}
+	div.header-icon-right(ng-click="edit()"): i.fa.fa-lg.fa-bars
+	div.content
+		div(ng-show="sentence")
+			div.sentence
+				span(
+					ng-repeat="word in sentence.words track by $index" 
+					ng-click='read(word)'
+				)
+					span.word(ng-class='{active: selected.word == word}') {{word}}
+					span &nbsp;
+			div.buttons
+				button.continue(ng-show='!isEnd' ng-click='nextSentence()') Continue
+				button.end(ng-show='isEnd' ng-click='end()') The End
+				div(ng-show="!sentence") This story has no content 

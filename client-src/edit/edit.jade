@@ -1,0 +1,7 @@
+div.edit.screen
+	div.title Story
+	div.header-icon-right(ng-click="delete()"): i.fa.fa-lg.fa-trash-o
+	div.content
+		div: input(ng-model='story.title')
+		div: textarea(ng-model='story.text')
+		div: button.save.button(ng-click='save()'): i.fa.fa-lg.fa-check

@@ -1,0 +1,19 @@
+
+<div class="manage page">
+  <div class="header"><i tap="back()" class="fa fa-chevron-left back-button"></i>
+    <div class="title">RECORDING LIST</div>
+  </div>
+  <div class="body">
+    <div class="list">
+      <div ng-repeat="r in recordings track by $index" class="item">
+        <div class="text">{{r.title}}</div>
+        <div ng-hide="r === playing" tap="play(r,$index)" class="icon"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-play fa-stack-1x"></i></span></div>
+        <div ng-show="r === playing" tap="stop()" class="icon"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-stop fa-stack-1x"></i></span></div>
+        <div tap="delete(r,$index)" class="icon delete"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-trash fa-stack-1x"></i></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div tap="goto('record')" class="button">NEW RECORDING</div>
+  </div>
+</div>

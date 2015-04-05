@@ -1,0 +1,24 @@
+.recording.page
+	.header
+		i.left.icon.fa.fa-chevron-left.back-button(tap="continue()")
+		.title WORD RECORDING
+	.body
+		.list
+			.item(ng-repeat="word in allWords track by $index")
+				.text {{word}}
+				.icon(ng-hide="word === playing || !recordings[word]" tap="play(word,$index)")
+					span.fa-stack.fa-lg
+						i.fa.fa-circle-o.fa-stack-2x
+						i.fa.fa-play.fa-stack-1x
+							
+				.icon(ng-show="word === playing || word === recording" tap="stop()")
+					span.fa-stack.fa-lg
+						i.fa.fa-circle-o.fa-stack-2x
+						i.fa.fa-stop.fa-stack-1x
+							
+				.icon.record(ng-hide="word === recording" tap="record(word,$index)")
+					span.fa-stack.fa-lg
+						i.fa.fa-circle-o.fa-stack-2x
+						i.fa.fa-microphone.fa-stack-1x
+	.footer
+		.finish-recording.button(tap='continue()') Done

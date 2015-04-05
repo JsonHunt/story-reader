@@ -1,0 +1,14 @@
+.home.page
+	.header
+		.title STORY READER
+		i.right.icon.new-story.fa.fa-plus(tap="newStory()")
+	.body
+		.note(ng-show="stories.length == 0") SORRY, NO STORY
+		.list
+			.item(
+				ng-repeat="s in stories track by $index"
+				tap="selectStory(s)"
+			)
+				.title {{s.title}}
+
+		

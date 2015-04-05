@@ -1,0 +1,537 @@
+fle,
+html {
+  height: 100%;
+}
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
+     -moz-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #000;
+  font-size: 20px;
+  overflow-y: auto;
+}
+input[type='text'],
+textarea {
+  padding: 10px 15px;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+  border: 1px solid #42adff;
+  margin: 10px;
+  margin-bottom: 0;
+  background-color: #023e70;
+  color: #fff;
+}
+.note {
+  padding: 20px;
+  text-align: center;
+  color: #0991f9;
+  text-transform: uppercase;
+}
+.list {
+  overflow-y: auto;
+}
+.list >.item {
+  border-bottom: 1px solid #42adff;
+  cursor: default;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.list >.item .text {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  color: #fff;
+}
+.list >.item .icon {
+  padding: 10px;
+}
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.appheader {
+  background-color: #0991f9;
+  padding: 10px;
+  display: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+     -moz-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-bottom: #0991f9;
+}
+.appheader .title {
+  font-weight: bold;
+  color: #fff;
+}
+.appcontent {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
+     -moz-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.appcontent >.page {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
+     -moz-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.appcontent >.page >.header {
+  background-color: #0991f9;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.appcontent >.page >.header >.icon {
+  padding: 0 25px;
+  color: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
+          align-self: stretch;
+}
+.appcontent >.page >.header >.left.icon {
+  border-right: 1px solid #023e70;
+}
+.appcontent >.page >.header >.right.icon {
+  border-left: 1px solid #023e70;
+}
+.appcontent >.page >.header >.title {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 15px 20px;
+}
+.appcontent >.page >.header2 {
+  min-height: 50px;
+  border-top: 1px solid #023e70;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+     -moz-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  text-transform: none;
+}
+.appcontent >.page >.body {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
+     -moz-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.appcontent >.page >.footer {
+  padding: 10px;
+  border-top: 1px solid #0991f9;
+}
+.button {
+  background-color: #0991f9;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+}
+.form.center {
+  margin: auto;
+  width: 500px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #ddd;
+}
+.edit.page .hide {
+  display: none;
+}
+.edit.page .story {
+  margin-bottom: 10px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.edit.page .button {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.edit.page .button.delete {
+  border-right: 1px solid #023e70;
+  background-color: #f00;
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+.fa-stack .fa-play.fa-stack-1x {
+  position: relative;
+  left: 3px;
+  -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+       -o-transform: scale(0.8);
+          transform: scale(0.8);
+}
+.fa-stack .fa-stop.fa-stack-1x {
+  -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+       -o-transform: scale(0.8);
+          transform: scale(0.8);
+}
+.page {
+  background-image: url("img/sky.jpg");
+  -moz-background-size: cover;
+    -o-background-size: cover;
+       background-size: cover;
+}
+.home.page .note {
+  margin-top: 50px;
+}
+.home.page .list .item .title {
+  color: #fff;
+  padding: 20px 25px;
+}
+.manage.page {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+     -moz-box-orient: vertical;
+     -moz-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.manage.page .list {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.manage.page i.fa.back-button {
+  color: #fff;
+}
+.manage.page i.fa {
+  color: #0991f9;
+}
+.manage.page .icon.delete i {
+  color: #f00;
+}
+.manage.page i.fa-play {
+  -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+       -o-transform: scale(0.8);
+          transform: scale(0.8);
+  position: relative;
+  left: 3px;
+}
+.manage.page i.fa-stop {
+  -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+       -o-transform: scale(0.8);
+          transform: scale(0.8);
+}
+.record.page .note {
+  visibility: hidden;
+}
+.record.page .recarea {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+     -moz-box-orient: horizontal;
+     -moz-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.record.page .record,
+.record.page .stop {
+  color: #42adff;
+  margin: auto;
+  -webkit-transform: scale(4);
+     -moz-transform: scale(4);
+      -ms-transform: scale(4);
+       -o-transform: scale(4);
+          transform: scale(4);
+}
+.record.page .save,
+.record.page .play {
+  color: #008000;
+  margin: auto;
+  -webkit-transform: scale(2);
+     -moz-transform: scale(2);
+      -ms-transform: scale(2);
+       -o-transform: scale(2);
+          transform: scale(2);
+  visibility: hidden;
+  z-index: 1000;
+}
+.record.page .input-error {
+  padding: 10px;
+  height: 50px;
+  margin: 10px;
+  margin-top: 0;
+  margin-bottom: 40px;
+  color: #f00;
+  border: 1px solid #f00;
+  text-align: center;
+  visibility: hidden;
+}
+.record.page .visible {
+  visibility: visible;
+}
+.recording.page {
+  color: #fff;
+}
+.session.page .in-progress {
+  background-color: #008000;
+  color: #fff;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+.session.page .no-power {
+  border: 1px solid #f00;
+  background-color: #f00;
+  color: #fff;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+.session.page .lbl {
+  background-color: #023e70;
+  padding: 10px;
+  color: #fff;
+}
+.session.page .delay,
+.session.page .duration {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+     -moz-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #0991f9;
+}
+.session.page .delay >.button,
+.session.page .duration >.button {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 15px 0;
+  border-left: 1px solid #023e70;
+  text-align: center;
+}
+.session.page .delay >.button.active,
+.session.page .duration >.button.active {
+  background-color: #42adff;
+}
+.session.page .delay >.button:first-child,
+.session.page .duration >.button:first-child {
+  border-left: none;
+}
+.session.page .start {
+  color: #42adff;
+  margin: auto;
+  -webkit-transform: scale(3);
+     -moz-transform: scale(3);
+      -ms-transform: scale(3);
+       -o-transform: scale(3);
+          transform: scale(3);
+}
+.session.page .stop {
+  color: #42adff;
+  margin: auto;
+  -webkit-transform: scale(4);
+     -moz-transform: scale(4);
+      -ms-transform: scale(4);
+       -o-transform: scale(4);
+          transform: scale(4);
+}
+.session.page .fa.fa-play {
+  position: relative;
+  left: 3px;
+}
+.session.page .fa.fa-stop {
+  -webkit-transform: scale(0.8);
+     -moz-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+       -o-transform: scale(0.8);
+          transform: scale(0.8);
+}
+.story.page .active,
+.story.page .recorded {
+  background-color: #008000;
+}
+.story.page .sentence {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+     -moz-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px;
+}
+.story.page .word {
+  color: #fff;
+  font-size: 30px;
+}
+.story.page .word.capitalized {
+  text-transform: uppercase;
+  font-size: 25px;
+}
+.story.page .playing {
+  text-decoration: underline;
+}
+.story.page .buttons {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.story.page .buttons .previous,
+.story.page .buttons .next {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+     -moz-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 0 1px;
+}
+
+/*# sourceMappingURL=bundle.css.map */

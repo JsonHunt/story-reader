@@ -1,0 +1,17 @@
+
+<div class="edit page">
+  <div ng-hide="keyboard" class="header"><i ng-click="back()" class="left icon fa fa-chevron-left back-button"></i>
+    <div class="title">Edit Story</div><i tap="showOptions = !showOptions" class="right icon delete fa fa-lg fa-trash-o"></i>
+  </div>
+  <div ng-show="showOptions" class="header header2">
+    <div tap="delete()" class="button delete">DELETE</div>
+    <div tap="showOptions = !showOptions" class="button cancel">CANCEL</div>
+  </div>
+  <div class="body">
+    <input type="text" ng-model="story.title" placeholder="Title" ng-enter="titleEnter()" class="title"/>
+    <textarea ng-model="story.text" placeholder="The story" ng-enter="textEnter()" class="story"></textarea>
+  </div>
+  <div ng-hide="keyboard" class="footer">
+    <div tap="save()" class="button save">Save</div>
+  </div>
+</div>

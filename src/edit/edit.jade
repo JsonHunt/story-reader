@@ -1,0 +1,14 @@
+.edit.page
+	.header(ng-hide="keyboard")
+		i.left.icon.fa.fa-chevron-left.back-button(ng-click="back()")
+		.title Edit Story
+		//- i.right.icon.record.fa.fa-lg.fa-microphone(tap="goto('record')")
+		i.right.icon.delete.fa.fa-lg.fa-trash-o(tap="showOptions = !showOptions")
+	.header.header2(ng-show="showOptions")
+		.button.delete(tap="delete()") DELETE
+		.button.cancel(tap="showOptions = !showOptions") CANCEL
+	.body
+		input.title(type='text' ng-model='story.title' placeholder="Title" ng-enter='titleEnter()')
+		textarea.story(ng-model='story.text' placeholder="The story" ng-enter='textEnter()')
+	.footer(ng-hide="keyboard")
+		.button.save(tap='save()') Save

@@ -1,0 +1,25 @@
+.story.page
+	.header
+		i.left.icon.fa.fa-chevron-left(tap="back()")
+		.title(tap="showOptions = !showOptions") {{story.title}}
+		
+	.header.header2(ng-show="showOptions")
+		.right.icon(tap="toggleCaps()") {{capOn ? 'Abc' : 'ABC'}}
+		i.right.icon.fa.fa-microphone(ng-class="{active: recOn}" tap="toggleRecording()")
+		i.right.icon.fa.fa-edit(tap="edit()")
+			
+	.body(ng-swipe-left="nextSentence()", ng-swipe-right="prevSentence()")
+		div(ng-show="sentence")
+			.sentence
+				span(
+					ng-repeat="word in sentence.words track by $index" 
+					tap='select(word)'
+				)
+					span.word(ng-class='{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}' style="color: {{recOn && recordings[word.toLowerCase()] ? 'green' : 'white'}}") {{word}}
+					span &nbsp;
+	//- .footer
+	//- 	.buttons
+	//- 		.button.previous(ng-show='!isStart' tap='prevSentence()') <
+	//- 		.button.next(ng-show='!isEnd' tap='nextSentence()') >
+	//- 		.button.end(ng-show='isEnd' tap='end()') The End
+			//- div(ng-show="!sentence") This story has no content 

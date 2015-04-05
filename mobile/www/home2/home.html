@@ -1,0 +1,14 @@
+
+<div class="record page">
+  <div class="header"><i tap="back()" class="fa fa-chevron-left back-button"></i>
+    <div class="title">NEW RECORDING</div>
+  </div>
+  <div class="body">
+    <input ng-model="rec.title" ng-enter="blur()" type="text" placeholder="Title" class="title"/>
+    <div ng-class="{visible: !keyboard &amp;&amp; error}" class="input-error">{{error}}</div>
+    <div ng-show="keyboard == false" class="recarea"><span ng-class="{visible: !recording &amp;&amp; !playing &amp;&amp; rec.url}" tap="play()" class="play fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-play fa-stack-1x"></i></span><span ng-show="!recording &amp;&amp; !playing" tap="record()" class="record fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-microphone fa-stack-1x"></i></span><span ng-show="recording || playing" tap="stop()" class="stop fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-stop fa-stack-1x"></i></span><span ng-class="{visible: !recording &amp;&amp; !playing &amp;&amp; rec.url}" tap="save()" class="save fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-check fa-stack-1x"></i></span></div>
+    <div ng-show="!keyboard">
+      <div ng-class="{visible: recording}" class="note">Recording...</div>
+    </div>
+  </div>
+</div>

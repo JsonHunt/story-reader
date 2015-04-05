@@ -1,0 +1,9 @@
+div.main.screen
+  div.title STORY READER
+  div.header-icon-right(ng-click="newStory()"): i.fa.fa-lg.fa-plus
+  div.content
+    div.storylist
+      div.story(
+        ng-repeat="story in stories track by $index" 
+        ng-click="select(story)"
+      ) {{story.title}}

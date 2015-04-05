@@ -1,0 +1,26 @@
+.manage.page
+	.header
+		i.fa.fa-chevron-left.back-button(tap="back()")
+		.title RECORDING LIST
+	.body
+		.list
+			.item(ng-repeat="r in recordings track by $index")
+				.text {{r.title}}
+				.icon(ng-hide="r === playing" tap="play(r,$index)")
+					span.fa-stack.fa-lg
+						i.fa.fa-circle-o.fa-stack-2x
+						i.fa.fa-play.fa-stack-1x
+							
+				.icon(ng-show="r === playing" tap="stop()")
+					span.fa-stack.fa-lg
+						i.fa.fa-circle-o.fa-stack-2x
+						i.fa.fa-stop.fa-stack-1x
+							
+				.icon.delete(tap="delete(r,$index)")
+					span.fa-stack.fa-lg
+						i.fa.fa-circle-o.fa-stack-2x
+						i.fa.fa-trash.fa-stack-1x
+
+	.footer
+		.button(tap="goto('record')") NEW RECORDING
+		

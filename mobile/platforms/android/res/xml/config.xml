@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.integral.bookreader" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="loglevel" value="DEBUG" />
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Media">
+        <param name="android-package" value="org.apache.cordova.media.AudioHandler" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="android-package" value="com.ionic.keyboard.IonicKeyboard" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="DeviceFeedback">
+        <param name="android-package" value="cz.Velda.cordova.plugin.devicefeedback.DeviceFeedback" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Battery">
+        <param name="android-package" value="org.apache.cordova.batterystatus.BatteryListener" />
+    </feature>
+    <name>Story Reader</name>
+    <description>
+				Assisted story reading for kids
+		</description>
+    <author email="sensei@integral.com" href="http://integral-systems.com">
+				JsonHunt
+		</author>
+    <content src="index.html" />
+    <icon src="www/img/book_logo.png" />
+    <access origin="*" />
+</widget>
