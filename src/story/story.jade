@@ -6,20 +6,42 @@
 	.header.header2(ng-show="showOptions")
 		.right.icon(tap="toggleCaps()") {{capOn ? 'Abc' : 'ABC'}}
 		i.right.icon.fa.fa-microphone(ng-class="{active: recOn}" tap="toggleRecording()")
+		i.right.icon.fa.fa-picture-o(ng-class="{active: imgOn}" tap="toggleImageSelect()")
 		i.right.icon.fa.fa-edit(tap="edit()")
 			
-	.body(ng-swipe-left="nextSentence()", ng-swipe-right="prevSentence()")
-		div(ng-show="sentence")
+	.body.column(ng-swipe-left="nextSentence()", ng-swipe-right="prevSentence()")
+		.fill(ng-show="sentence && !selectingImgFor")
 			.sentence
 				span(
 					ng-repeat="word in sentence.words track by $index" 
 					tap='select(word)'
 				)
-					span.word(ng-class='{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}' style="color: {{recOn && recordings[word.toLowerCase()] ? 'green' : 'white'}}") {{word}}
+					span.word(
+						ng-class='{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}' 
+						style="color: {{getWordColor(word)}}"
+					) {{word}}
 					span &nbsp;
-	//- .footer
-	//- 	.buttons
-	//- 		.button.previous(ng-show='!isStart' tap='prevSentence()') <
-	//- 		.button.next(ng-show='!isEnd' tap='nextSentence()') >
-	//- 		.button.end(ng-show='isEnd' tap='end()') The End
-			//- div(ng-show="!sentence") This story has no content 
+			img.word-image(if="wordImageURL" ng-src="{{wordImageURL}}")
+					
+		.image-word-panel.column(ng-show="selectingImgFor")
+			.word-select.row
+				//- i.prev-word.fill.fa.fa-chevron-left(tap='prevWord()')
+				.image-word.center.fill(ng-click="closeImages()") {{selectingImgFor}}
+				//- i.next-word.fill.fa.fa-chevron-right(tap='nextWord()')
+			.image-results.fill
+				span.image-result-frame(ng-repeat="res in imageResults")
+					i.fa.fa-2x.fa-check.selected(ng-if="imageSelected(res)")
+					img.image-result(					
+						ng-src="{{res.image.thumbnailLink}}"
+						tap="toggleImage(res)"
+					)
+			//- .image-paging.row
+			//- 	i.prev-img-page.fill.fa.fa-chevron-left(tap='prevImgResult()')
+			//- 	i.close-images.fill.fa.fa-check(tap="closeImages()")
+			//- 	i.next-img-page.fill.fa.fa-chevron-right(tap='nextImgResult()')
+				
+		//- div.row
+		//- 	.previous(ng-show='!isStart' tap='prevSentence()') <
+		//- 	.button.next(ng-show='!isEnd' tap='nextSentence()') >
+		//- 	.button.end(ng-show='isEnd' tap='end()') The End
+		//- 	div(ng-show="!sentence") This story has no content 

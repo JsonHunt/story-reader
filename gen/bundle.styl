@@ -3,8 +3,6 @@ $medium = #42adff
 $dark = #0991f9
 $verydark = #023E70
 
-fle
-
 html
 	height 100%
 	background-color black
@@ -137,6 +135,27 @@ input[type='text'], textarea
 			background-color red
 			border-radius: 0
 
+.row
+	display flex
+	flex-direction row
+
+.column
+	display flex
+	flex-direction column
+
+.fill
+	flex 1
+
+i.fa
+	display flex
+	justify-content center
+	align-items center
+
+.center
+	display flex
+	justify-content center
+	align-items center
+
 .fa-stack
 	.fa-play.fa-stack-1x
 		position relative
@@ -162,7 +181,7 @@ input[type='text'], textarea
 	color white
 
 .story.page
-	
+
 	.active, .recorded
 		background-color green
 
@@ -176,6 +195,9 @@ input[type='text'], textarea
 		color white
 		font-size 30px
 
+	.word-image
+		width 100%
+
 	.word.capitalized
 		text-transform: uppercase
 		font-size 25px
@@ -187,4 +209,35 @@ input[type='text'], textarea
 		.previous, .next
 			flex 1
 			margin 0 1px
+
+	.image-word-panel
+		text-transform none
+		background-color $medium
+		border-top 1px solid $verydark
+		color white
+		i.fa
+			padding 15px
+
+		.image-word
+			border-left: 1px solid $dark
+			border-right: 1px solid $dark
+			padding 15px
+
+		.image-results
+			overflow-y scroll
+
+		.image-result-frame
+			position: relative
+			i.selected
+				position: absolute
+				z-index 1000
+				top 2
+				right 2
+				color green
+				background-color black
+
+			.image-result
+				width 100%
+				border-bottom 1px solid black
+				border-top 1px solid white
 

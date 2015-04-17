@@ -4,7 +4,7 @@ exports.tap = ($timeout) ->
 		# priority: -1
 		link: (scope, elem, attr) ->
 			elem.on 'touchend', (event)->
-				if window.plugins?.deviceFeedback?.acoustic
+				if @isPhoneGap and window.plugins?.deviceFeedback?.acoustic
 					window.plugins.deviceFeedback.acoustic()
 				scope.$apply ()->
 					scope.$eval attr.tap

@@ -4,11 +4,17 @@
     <div tap="showOptions = !showOptions" class="title">{{story.title}}</div>
   </div>
   <div ng-show="showOptions" class="header header2">
-    <div tap="toggleCaps()" class="right icon">{{capOn ? 'Abc' : 'ABC'}}</div><i ng-class="{active: recOn}" tap="toggleRecording()" class="right icon fa fa-microphone"></i><i tap="edit()" class="right icon fa fa-edit"></i>
+    <div tap="toggleCaps()" class="right icon">{{capOn ? 'Abc' : 'ABC'}}</div><i ng-class="{active: recOn}" tap="toggleRecording()" class="right icon fa fa-microphone"></i><i ng-class="{active: imgOn}" tap="toggleImageSelect()" class="right icon fa fa-picture-o"></i><i tap="edit()" class="right icon fa fa-edit"></i>
   </div>
-  <div ng-swipe-left="nextSentence()" ng-swipe-right="prevSentence()" class="body">
-    <div ng-show="sentence">
-      <div class="sentence"><span ng-repeat="word in sentence.words track by $index" tap="select(word)"><span ng-class="{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}" style="color: {{recOn &amp;&amp; recordings[word.toLowerCase()] ? 'green' : 'white'}}" class="word">{{word}}</span><span>&nbsp;</span></span></div>
+  <div ng-swipe-left="nextSentence()" ng-swipe-right="prevSentence()" class="body column">
+    <div ng-show="sentence &amp;&amp; !selectingImgFor" class="fill">
+      <div class="sentence"><span ng-repeat="word in sentence.words track by $index" tap="select(word)"><span ng-class="{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}" style="color: {{getWordColor(word)}}" class="word">{{word}}</span><span>&nbsp;</span></span></div><img if="wordImageURL" ng-src="{{wordImageURL}}" class="word-image"/>
+    </div>
+    <div ng-show="selectingImgFor" class="image-word-panel column">
+      <div class="word-select row">
+        <div ng-click="closeImages()" class="image-word center fill">{{selectingImgFor}}</div>
+      </div>
+      <div class="image-results fill"><span ng-repeat="res in imageResults" class="image-result-frame"><i ng-if="imageSelected(res)" class="fa fa-2x fa-check selected"></i><img ng-src="{{res.image.thumbnailLink}}" tap="toggleImage(res)" class="image-result"/></span></div>
     </div>
   </div>
 </div>

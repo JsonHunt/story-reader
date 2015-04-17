@@ -1,5 +1,5 @@
 .story.page
-	
+
 	.active, .recorded
 		background-color green
 
@@ -13,6 +13,9 @@
 		color white
 		font-size 30px
 
+	.word-image
+		width 100%
+
 	.word.capitalized
 		text-transform: uppercase
 		font-size 25px
@@ -24,3 +27,34 @@
 		.previous, .next
 			flex 1
 			margin 0 1px
+
+	.image-word-panel
+		text-transform none
+		background-color $medium
+		border-top 1px solid $verydark
+		color white
+		i.fa
+			padding 15px
+
+		.image-word
+			border-left: 1px solid $dark
+			border-right: 1px solid $dark
+			padding 15px
+
+		.image-results
+			overflow-y scroll
+
+		.image-result-frame
+			position: relative
+			i.selected
+				position: absolute
+				z-index 1000
+				top 2
+				right 2
+				color green
+				background-color black
+
+			.image-result
+				width 100%
+				border-bottom 1px solid black
+				border-top 1px solid white

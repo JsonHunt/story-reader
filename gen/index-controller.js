@@ -34,19 +34,21 @@
     $scope.back = function() {
       return window.history.back();
     };
-    $cordovaFile.checkDir(cordova.file.externalDataDirectory, "story-reader-files").then(function(success) {
-      return $scope.checkFiles();
-    }, function(error) {
-      if (error.message === 'NOT_FOUND_ERR') {
-        return $cordovaFile.createDir(cordova.file.externalDataDirectory, "story-reader-files").then(function(success) {
-          return $scope.checkFiles();
-        }, function(error) {
-          return console.log("Error: " + error);
-        });
-      } else {
-        return console.log("Error checking for recording directory : " + JSON.stringify(error));
-      }
-    });
+    if ($cordovaFile) {
+      $cordovaFile.checkDir(cordova.file.externalDataDirectory, "story-reader-files").then(function(success) {
+        return $scope.checkFiles();
+      }, function(error) {
+        if (error.message === 'NOT_FOUND_ERR') {
+          return $cordovaFile.createDir(cordova.file.externalDataDirectory, "story-reader-files").then(function(success) {
+            return $scope.checkFiles();
+          }, function(error) {
+            return console.log("Error: " + error);
+          });
+        } else {
+          return console.log("Error checking for recording directory : " + JSON.stringify(error));
+        }
+      });
+    }
     $scope.recordings = {};
     return $scope.checkFiles = function() {
       return window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory + 'story-reader-files', function(fileEntry) {
@@ -71,6 +73,10 @@
     };
   };
 
-  IndexController.$inject = ['$scope', '$location', '$cordovaFile'];
+  if (this.isPhoneGap) {
+    IndexController.$inject = ['$scope', '$location', '$cordovaFile'];
+  } else {
+    IndexController.$inject = ['$scope', '$location'];
+  }
 
 }).call(this);

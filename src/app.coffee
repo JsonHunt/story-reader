@@ -1,14 +1,14 @@
-isPhoneGap = document.URL.indexOf( 'http://' ) is -1 and document.URL.indexOf( 'https://' ) is -1
+@isPhoneGap = document.URL.indexOf( 'http://' ) is -1 and document.URL.indexOf( 'https://' ) is -1
 
 modules = [
 	'ngRoute'
 	'oc.modal'
-	'ui.bootstrap'
+	# 'ui.bootstrap'
 	'ngMaterial'
 	'ngTouch'
 ]
 
-if isPhoneGap
+if @isPhoneGap
 	modules.push 'ngCordova'
 
 app = angular.module 'PublicApp', modules
@@ -36,7 +36,7 @@ app.config ['$httpProvider','$routeProvider', ($httpProvider,$routeProvider) ->
 		redirectTo : '/'
 ]
 
-if isPhoneGap
+if @isPhoneGap
 	console.log "PHONEGAP APPLICATION"
 	document.addEventListener 'deviceready', ()->
 		angular.bootstrap document, ['PublicApp']

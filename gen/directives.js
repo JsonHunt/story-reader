@@ -6,7 +6,7 @@
       link: function(scope, elem, attr) {
         return elem.on('touchend', function(event) {
           var _ref, _ref1;
-          if ((_ref = window.plugins) != null ? (_ref1 = _ref.deviceFeedback) != null ? _ref1.acoustic : void 0 : void 0) {
+          if (this.isPhoneGap && ((_ref = window.plugins) != null ? (_ref1 = _ref.deviceFeedback) != null ? _ref1.acoustic : void 0 : void 0)) {
             window.plugins.deviceFeedback.acoustic();
           }
           return scope.$apply(function() {

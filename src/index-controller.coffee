@@ -24,22 +24,23 @@ module.exports = IndexController = ($scope,$location, $cordovaFile) ->
 	$scope.back = ()->
 		window.history.back()
 
-	$cordovaFile
-	.checkDir cordova.file.externalDataDirectory, "story-reader-files"
-	.then (success)->
-		# console.log "story-reader-files folder exists"
-		$scope.checkFiles()
-	,(error)->
-		if error.message is 'NOT_FOUND_ERR'
-			$cordovaFile
-			.createDir cordova.file.externalDataDirectory, "story-reader-files"
-			.then (success)->
-				# console.log "Created story-reader-files folder"
-				$scope.checkFiles()
-			, (error)->
-				console.log "Error: #{error}"
-		else
-			console.log "Error checking for recording directory : " + JSON.stringify(error)
+	if $cordovaFile
+		$cordovaFile
+		.checkDir cordova.file.externalDataDirectory, "story-reader-files"
+		.then (success)->
+			# console.log "story-reader-files folder exists"
+			$scope.checkFiles()
+		,(error)->
+			if error.message is 'NOT_FOUND_ERR'
+				$cordovaFile
+				.createDir cordova.file.externalDataDirectory, "story-reader-files"
+				.then (success)->
+					# console.log "Created story-reader-files folder"
+					$scope.checkFiles()
+				, (error)->
+					console.log "Error: #{error}"
+			else
+				console.log "Error checking for recording directory : " + JSON.stringify(error)
 
 	$scope.recordings = {}
 	$scope.checkFiles = ()->
@@ -63,4 +64,7 @@ module.exports = IndexController = ($scope,$location, $cordovaFile) ->
 			console.log "Error getting folder URL : " + JSON.stringify(error)
 
 
-IndexController.$inject = [ '$scope','$location','$cordovaFile']
+if @isPhoneGap
+	IndexController.$inject = [ '$scope','$location','$cordovaFile']
+else
+	IndexController.$inject = [ '$scope','$location' ]
