@@ -1,0 +1,29 @@
+V capitalized words do not display images
+V capitalized words do not turn green in image mode
+V add book icon
+V deselect image only when clicked on check icon
+V fix word image search
+
+V add word search by any text
+- add sentence image placeholder
+- add sentence image by search
+
+- add story image by camera
+- add story image by search
+
+- make image search results fit in two columns
+
+- add punctuation and cap toggle during dictation
+- fix back button
+- storage story list should only contain id, title and image
+- storage story details should be kept separate from other stories
+- add paged story list screen with story image
+- change to black on white theme
+
+- make word image disappear when tapped
+- make word image appear positioned at the bottom of the screen, below text, sized to fit
+- make sentence image appear at the bottom of the screen, below text, sized to fit
+- try to record words while dictating
+
+V move cap toggle to main screen
+- add sentence edit button

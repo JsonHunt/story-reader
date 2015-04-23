@@ -8,6 +8,6 @@
 				JsonHunt
 		</author>
 		<content src="index.html" />
-		<icon src="www/img/book_logo.png"/>
+		<icon src="www/img/book_icon.jpg"/>
 		<access origin="*" />
 </widget>

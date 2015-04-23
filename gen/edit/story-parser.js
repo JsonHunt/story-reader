@@ -19,7 +19,7 @@
         text += '.';
       }
       storyReg = /[\s\S]*?[\.\!\?](\.\.)?/gm;
-      punctuation = [',', '...', '!', '?', ';', '.', ':', '"'];
+      punctuation = ['(', ')', ',', '...', '!', '?', ';', '.', ':', '"'];
       for (_i = 0, _len = punctuation.length; _i < _len; _i++) {
         p = punctuation[_i];
         text = S(text).replaceAll(p, " " + p + " ");

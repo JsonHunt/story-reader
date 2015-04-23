@@ -1,11 +1,24 @@
 .page
 	// background-image url("img/sky.jpg")
 	// background-size cover
-	background-color black
+	// background-color black
 
 .home.page
+	position relative
+	.new-story
+		position absolute
+		bottom 20px
+		right 20px
+		background-color $light
+		&.touched
+			background-color $medium
+
+
+	.cap-toggle
+		width 100px
+
 	.note
 		margin-top 50px
 	.list .item .title
-		color	white
+		// color	white
 		padding 20px 25px

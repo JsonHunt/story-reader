@@ -9,12 +9,54 @@
 .fill
 	flex 1
 
-i.fa
-	display flex
-	justify-content center
-	align-items center
-
 .center
 	display flex
 	justify-content center
 	align-items center
+
+.vcenter
+	display flex
+	align-items center
+
+.hcenter
+	display flex
+	justify-content center
+
+i.fa, .icon
+	@extends .center
+
+.pad
+	padding 10px
+
+.bar
+	@extends .row
+	background-color $dark
+	color white
+	font-weight bold
+	align-items stretch
+	min-height 40px
+	// border-top 1px solid $verydark
+	// border-bottom 1px solid $verydark
+	i.fa, .icon
+		width 40px
+		color white
+		&.left
+			border-right 1px solid $verydark
+		&.right
+			border-left 1px solid $verydark
+		&.tapped
+			background-color $light
+		&.active
+			background-color $light
+		// &[tap]:hover
+		// 	background-color $medium
+	>.title
+		flex 1
+		padding-left 10px
+		@extends .vcenter
+
+.auto-scroll
+	overflow-y auto
+
+.scroll
+	overflow-y scroll

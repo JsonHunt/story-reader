@@ -1,0 +1,19 @@
+
+<div class="story-edit-panel column fill">
+  <div class="text-section column pad">
+    <textarea type="text" ng-model="page.text" placeholder="Page text" ng-change="onTextChanged()" class="fill"></textarea>
+    <textarea type="text" ng-model="story.page.text" placeholder="Page text"></textarea>
+    <div class="bar">
+      <div tap="insert('.')" class="icon">.</div>
+      <div tap="insert(',')" class="icon">,</div>
+      <div tap="insert('!')" class="icon">!</div>
+      <div tap="insert('?')" class="icon">?</div>
+      <div tap="insert('&quot;')" class="icon">"</div><i tap="undoWord()" class="fa fa-undo"></i><i tap="recordText()" class="right fa fa-microphone"></i>
+    </div>
+  </div>
+  <div class="page-image-section pad fill">
+    <div class="bar">
+      <div class="title">Page Image</div><i tap="capturePageImage()" class="right fa fa-camera"></i><i tap="googlePageImage()" class="right fa fa-search"></i><i tap="selectPageImage()" class="right fa fa-file-image-o"></i><i tap="deletePageImage()" class="right fa fa-trash"></i>
+    </div><img class="fill"/>
+  </div>
+</div>

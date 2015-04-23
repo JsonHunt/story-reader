@@ -3,15 +3,43 @@
   var IndexController;
 
   module.exports = IndexController = function($scope, $location, $cordovaFile) {
-    var storiesString, wordsString;
-    storiesString = window.localStorage.getItem("stories");
-    if (storiesString == null) {
-      storiesString = JSON.stringify([]);
-    }
-    $scope.stories = JSON.parse(storiesString);
-    $scope.stories = _.filter($scope.stories, function(s) {
-      return s.id;
-    });
+    var wordsString;
+    $scope.save = function(key, value) {
+      return window.localStorage.setItem(key, JSON.stringify(value));
+    };
+    $scope.saveInt = function(key, value) {
+      return window.localStorage.setItem(key, value);
+    };
+    $scope.load = function(key) {
+      var value;
+      value = window.localStorage.getItem(key);
+      if (value === void 0) {
+        return {};
+      }
+      return JSON.parse(value);
+    };
+    $scope.loadArray = function(key) {
+      var value;
+      value = window.localStorage.getItem(key);
+      if (value === void 0) {
+        return [];
+      }
+      return JSON.parse(value);
+    };
+    $scope.loadInt = function(key) {
+      var value;
+      value = window.localStorage.getItem(key);
+      if (value === void 0) {
+        return 0;
+      }
+      return parseInt(value);
+    };
+    $scope.getNextID = function() {
+      var nextID;
+      nextID = $scope.loadInt('nextID');
+      $scope.saveInt('nextID', nextID + 1);
+      return nextID;
+    };
     console.log(JSON.stringify($scope.stories));
     wordsString = window.localStorage.getItem("words");
     if (wordsString == null) {

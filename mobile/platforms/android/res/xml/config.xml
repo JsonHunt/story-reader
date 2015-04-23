@@ -19,6 +19,15 @@
     <feature name="Battery">
         <param name="android-package" value="org.apache.cordova.batterystatus.BatteryListener" />
     </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <feature name="SpeechRecognition">
+        <param name="android-package" value="org.apache.cordova.speech.SpeechRecognition" />
+    </feature>
     <name>Story Reader</name>
     <description>
 				Assisted story reading for kids
@@ -27,6 +36,6 @@
 				JsonHunt
 		</author>
     <content src="index.html" />
-    <icon src="www/img/book_logo.png" />
+    <icon src="www/img/book_icon.jpg" />
     <access origin="*" />
 </widget>

@@ -36,6 +36,104 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.apache.cordova.file-transfer/www/FileTransferError.js",
+        "id": "org.apache.cordova.file-transfer.FileTransferError",
+        "clobbers": [
+            "window.FileTransferError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.file-transfer/www/FileTransfer.js",
+        "id": "org.apache.cordova.file-transfer.FileTransfer",
+        "clobbers": [
+            "window.FileTransfer"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraConstants.js",
+        "id": "org.apache.cordova.camera.Camera",
+        "clobbers": [
+            "Camera"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverOptions.js",
+        "id": "org.apache.cordova.camera.CameraPopoverOptions",
+        "clobbers": [
+            "CameraPopoverOptions"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/Camera.js",
+        "id": "org.apache.cordova.camera.camera",
+        "clobbers": [
+            "navigator.camera"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.camera/www/CameraPopoverHandle.js",
+        "id": "org.apache.cordova.camera.CameraPopoverHandle",
+        "clobbers": [
+            "CameraPopoverHandle"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.speech.speechrecognition/www/SpeechRecognition.js",
+        "id": "org.apache.cordova.speech.speechrecognition.SpeechRecognition",
+        "clobbers": [
+            "SpeechRecognition"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.speech.speechrecognition/www/SpeechRecognitionError.js",
+        "id": "org.apache.cordova.speech.speechrecognition.SpeechRecognitionError",
+        "clobbers": [
+            "SpeechRecognitionError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.speech.speechrecognition/www/SpeechRecognitionAlternative.js",
+        "id": "org.apache.cordova.speech.speechrecognition.SpeechRecognitionAlternative",
+        "clobbers": [
+            "SpeechRecognitionAlternative"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.speech.speechrecognition/www/SpeechRecognitionResult.js",
+        "id": "org.apache.cordova.speech.speechrecognition.SpeechRecognitionResult",
+        "clobbers": [
+            "SpeechRecognitionResult"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.speech.speechrecognition/www/SpeechRecognitionResultList.js",
+        "id": "org.apache.cordova.speech.speechrecognition.SpeechRecognitionResultList",
+        "clobbers": [
+            "SpeechRecognitionResultList"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.speech.speechrecognition/www/SpeechRecognitionEvent.js",
+        "id": "org.apache.cordova.speech.speechrecognition.SpeechRecognitionEvent",
+        "clobbers": [
+            "SpeechRecognitionEvent"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.speech.speechrecognition/www/SpeechGrammar.js",
+        "id": "org.apache.cordova.speech.speechrecognition.SpeechGrammar",
+        "clobbers": [
+            "SpeechGrammar"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.speech.speechrecognition/www/SpeechGrammarList.js",
+        "id": "org.apache.cordova.speech.speechrecognition.SpeechGrammarList",
+        "clobbers": [
+            "SpeechGrammarList"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.file/www/DirectoryEntry.js",
         "id": "org.apache.cordova.file.DirectoryEntry",
         "clobbers": [
@@ -189,6 +287,9 @@ module.exports.metadata =
     "com.ionic.keyboard": "1.0.4",
     "cz.Velda.cordova.plugin.devicefeedback": "0.0.1",
     "org.apache.cordova.battery-status": "0.2.12",
+    "org.apache.cordova.file-transfer": "0.5.0",
+    "org.apache.cordova.camera": "0.3.6",
+    "org.apache.cordova.speech.speechrecognition": "0.1.0",
     "org.apache.cordova.file": "1.3.3"
 }
 // BOTTOM OF METADATA

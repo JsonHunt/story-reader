@@ -2,9 +2,9 @@
 
 modules = [
 	'ngRoute'
-	'oc.modal'
+	# 'oc.modal'
 	# 'ui.bootstrap'
-	'ngMaterial'
+	# 'ngMaterial'
 	'ngTouch'
 ]
 

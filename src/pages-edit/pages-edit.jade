@@ -1,0 +1,28 @@
+.pages-edit-panel.column.fill
+	.text-section.column.pad
+		.bar
+			.title Page 1 of 12
+			i.right.fa.fa-chevron-left(tap="prevPage()")
+			i.right.fa.fa-chevron-right(tap="nextPage()")
+	
+		textarea(
+			type='text' 
+			ng-model='story.page.text' 
+			placeholder="Page text"
+		)
+		.bar
+			.icon(tap="insert('.')") .
+			.icon(tap="insert(',')") ,
+			.icon(tap="insert('!')") !
+			.icon(tap="insert('?')") ?
+			.icon(tap="insert('\"')") "
+			i.fa.fa-undo(tap="undoWord()")
+							
+	.page-image-section.pad.fill
+		.bar
+			.title Page Image
+			i.right.fa.fa-camera(tap="capturePageImage()")
+			i.right.fa.fa-search(tap="googlePageImage()")
+			i.right.fa.fa-file-image-o(tap="selectPageImage()")
+			i.right.fa.fa-trash(tap="deletePageImage()")
+		img.fill

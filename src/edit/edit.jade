@@ -8,7 +8,10 @@
 		.button.delete(tap="delete()") DELETE
 		.button.cancel(tap="showOptions = !showOptions") CANCEL
 	.body
-		input.title(type='text' ng-model='story.title' placeholder="Title" ng-enter='titleEnter()')
+		div.row
+			input.title.fill(type='text' ng-model='story.title' placeholder="Title" ng-enter='titleEnter()')
+			i.fa.fa-search(ng-click="searchForStoryImage()")
+			i.fa.fa-camera(ng-click="captureStoryImage()")
 		textarea.story(ng-model='story.text' placeholder="The story" ng-enter='textEnter()')
 	.footer(ng-hide="keyboard")
 		.button.save(tap='save()') Save

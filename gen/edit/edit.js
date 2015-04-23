@@ -80,7 +80,7 @@
       window.localStorage.setItem('lastID', $scope.story.id);
       return $location.path("story/" + $scope.story.id + "/1/1");
     };
-    return $scope["delete"] = function() {
+    $scope["delete"] = function() {
       var i, s, _i, _len, _ref;
       id = parseInt($routeParams.id);
       if (id === 0) {
@@ -100,6 +100,10 @@
         return $scope.goto('home');
       }, 100);
     };
+    $scope.searchForStoryImage = function() {
+      return $scope.imageSearch = true;
+    };
+    return $scope.captureStoryImage = function() {};
   };
 
   EditController.$inject = ['$scope', '$location', '$routeParams', '$timeout'];

@@ -3,11 +3,43 @@
   var HomeController;
 
   module.exports = HomeController = function($scope) {
+    var stories;
+    $scope.capOn = window.localStorage.getItem('caps');
+    stories = $scope.loadArray('stories');
+    $scope.getTitle = function(s) {
+      var pages;
+      pages = $scope.load("story-pages-" + s);
+      return pages[0].text;
+    };
     $scope.selectStory = function(s) {
       return $scope.goto("story/" + s.id);
     };
-    return $scope.newStory = function() {
-      return $scope.goto("edit/0");
+    $scope.newStory = function() {
+      var newStory, titlePage;
+      newStory = $scope.getNextID();
+      $scope.stories.push(newStory);
+      $scope.save('stories', $scope.stories);
+      titlePage = {
+        id: $scope.getNextID(),
+        text: "New Story"
+      };
+      return $scope.save("story-pages-" + newStory, [titlePage]);
+    };
+    $scope.toggleCaps = function() {
+      $scope.capOn = !$scope.capOn;
+      return window.localStorage.setItem('caps', $scope.capOn);
+    };
+    return $scope["delete"] = function(s) {
+      var id, index, _i, _len, _ref;
+      _ref = $scope.stories;
+      for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
+        id = _ref[index];
+        if (id === s) {
+          $scope.stories.splice(index, 1);
+          break;
+        }
+      }
+      return $scope.save('stories', $scope.stories);
     };
   };
 

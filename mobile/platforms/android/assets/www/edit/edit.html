@@ -8,7 +8,9 @@
     <div tap="showOptions = !showOptions" class="button cancel">CANCEL</div>
   </div>
   <div class="body">
-    <input type="text" ng-model="story.title" placeholder="Title" ng-enter="titleEnter()" class="title"/>
+    <div class="row">
+      <input type="text" ng-model="story.title" placeholder="Title" ng-enter="titleEnter()" class="title fill"/><i ng-click="searchForStoryImage()" class="fa fa-search"></i><i ng-click="captureStoryImage()" class="fa fa-camera"></i>
+    </div>
     <textarea ng-model="story.text" placeholder="The story" ng-enter="textEnter()" class="story"></textarea>
   </div>
   <div ng-hide="keyboard" class="footer">

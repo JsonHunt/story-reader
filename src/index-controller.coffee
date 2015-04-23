@@ -1,9 +1,35 @@
 module.exports = IndexController = ($scope,$location, $cordovaFile) ->
 
-	storiesString = window.localStorage.getItem("stories")
-	storiesString ?= JSON.stringify([])
-	$scope.stories = JSON.parse(storiesString)
-	$scope.stories = _.filter $scope.stories, (s) -> s.id
+	$scope.save = (key,value)->
+		window.localStorage.setItem key, JSON.stringify(value)
+
+	$scope.saveInt = (key,value)->
+		window.localStorage.setItem key, value
+
+	$scope.load = (key)->
+		value = window.localStorage.getItem(key)
+		return {} if value is undefined
+		return JSON.parse(value)
+
+	$scope.loadArray = (key)->
+		value = window.localStorage.getItem(key)
+		return [] if value is undefined
+		return JSON.parse(value)
+
+	$scope.loadInt = (key)->
+		value = window.localStorage.getItem(key)
+		return 0 if value is undefined
+		return parseInt(value)
+
+	$scope.getNextID = ()->
+		nextID = $scope.loadInt('nextID')
+		$scope.saveInt 'nextID', nextID+1
+		return nextID
+
+	# storiesString = window.localStorage.getItem("stories")
+	# storiesString ?= JSON.stringify([])
+	# $scope.stories = JSON.parse(storiesString)
+	# $scope.stories = _.filter $scope.stories, (s) -> s.id
 
 	console.log JSON.stringify($scope.stories)
 

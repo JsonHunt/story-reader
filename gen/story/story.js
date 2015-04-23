@@ -2,262 +2,41 @@
 (function() {
   var StoryController, services;
 
-  module.exports = StoryController = function($scope, $location, $routeParams, $timeout, $http, $cordovaFile) {
-    var appKey, engineKey, punctuation, wordsString, _base;
+  module.exports = StoryController = function($scope, $location, $routeParams, $timeout, $http, $cordovaFile, $cordovaFileTransfer, $cordovaCamera) {
+    var punctuation, storyID;
+    $scope.editController = require('./../edit/edit');
+    $scope.readController = require('./../read/read');
     console.log($routeParams.id);
-    $scope.story = _.find($scope.stories, function(s) {
-      return parseInt(s.id) === parseInt($routeParams.id);
-    });
-    console.log(JSON.stringify($scope.story));
-    if ((_base = $scope.story).sentences == null) {
-      _base.sentences = [];
-    }
-    $scope.isEnd = $scope.sentenceIndex === $scope.story.sentences.length - 1;
+    $scope.storyID = storyID = $routeParams.id;
+    $scope.pages = $scope.load("story-pages-" + storyID);
+    $scope.pageIndex = 0;
+    $scope.isEnd = $scope.story.pages.length === 1;
     $scope.isStart = true;
-    $scope.capOp = window.localStorage.getItem('caps');
-    $scope.recOn = $routeParams.rec;
-    $scope.showOptions = $routeParams.opt;
-    punctuation = [',', '...', '!', '?', ';', '.', ':', '"'];
-    appKey = "AIzaSyB83ol3E5p9fUSQPapia3TbwhAPVzLt2t8";
-    engineKey = "015762953028935180710:bgwcqasc418";
-    if ($scope.story.sentences.length > 0) {
-      $scope.sentenceIndex = 0;
-      $scope.sentence = $scope.story.sentences[0];
-    }
-    wordsString = window.localStorage.getItem("wordImages");
-    if (wordsString == null) {
-      wordsString = JSON.stringify({});
-    }
-    $scope.wordImages = JSON.parse(wordsString);
-    $scope.toggleCaps = function() {
-      $scope.stop();
-      $scope.capOn = !$scope.capOn;
-      return window.localStorage.setItem('caps', $scope.capOn);
-    };
-    $scope.toggleRecording = function() {
-      $scope.stop();
-      $scope.closeImages();
-      $scope.recOn = !$scope.recOn;
-      return $scope.imgOn = false;
-    };
-    $scope.toggleImageSelect = function() {
-      $scope.stop();
-      $scope.closeImages();
-      $scope.imgOn = !$scope.imgOn;
-      return $scope.recOn = false;
-    };
-    $scope.select = function(word) {
-      if (_.contains(punctuation, word)) {
-        return;
-      }
-      if (!$scope.recOn && !$scope.imgOn) {
-        return $scope.read(word);
-      } else if ($scope.recOn) {
-        if ($scope.recording.toLowerCase() === word.toLowerCase()) {
-          $scope.recordings[word.toLowerCase()] = true;
-          return $scope.stop();
-        } else {
-          if ($scope.recording) {
-            $scope.recordings[$scope.recording.toLowerCase()] = true;
-          }
-          return $scope.record(word);
-        }
-      } else if ($scope.imgOn) {
-        return $scope.loadImagesFor(word);
+    punctuation = ['(', ')', ',', '...', '!', '?', ';', '.', ':', '"'];
+    $scope.nextPage = function() {
+      if ($scope.pageIndex < $scope.story.pages(-1)) {
+        $scope.pageIndex++;
+        return $scope.showPage();
       }
     };
-    $scope.record = function(word) {
-      var filename;
-      filename = $scope.folderPath + ("/" + word + ".mp3");
-      $scope.stop();
-      console.log("Recording: " + filename);
-      return $timeout(function() {
-        $scope.recording = word.toLowerCase();
-        $scope.media = new Media(filename, function(success) {
-          return $scope.$apply(function() {
-            $scope.recording = void 0;
-            $scope.recordings[word.toLowerCase()] = filename;
-            return $scope.media.release();
-          });
-        }, function(error) {
-          console.log(JSON.stringify(error));
-          return $scope.$apply(function() {
-            $scope.recording = void 0;
-            return $scope.media.release();
-          });
-        }, function(status) {
-          return console.log(JSON.stringify(status));
-        });
-        return $scope.media.startRecord();
-      }, 100);
-    };
-    $scope.read = function(word) {
-      var filename, images, randomIndex;
-      if (!$scope.folderPath) {
-        return;
-      }
-      $scope.stop();
-      filename = $scope.folderPath + ("/" + word + ".mp3");
-      console.log("Playing: " + filename);
-      $scope.playing = word.toLowerCase();
-      $scope.media = new Media(filename, function(success) {
-        return $scope.$apply(function() {
-          if ($scope.playing === word.toLowerCase()) {
-            $scope.playing = void 0;
-            $scope.wordImageURL = void 0;
-            return $scope.media.release();
-          }
-        });
-      }, function(error) {
-        console.log(JSON.stringify(error));
-        return $scope.$apply(function() {
-          $scope.playing = void 0;
-          $scope.wordImageURL = void 0;
-          return $scope.media.release();
-        });
-      }, function(status) {
-        return console.log(JSON.stringify(status));
-      });
-      $scope.media.play();
-      images = $scope.wordImages[word];
-      randomIndex = Math.floor(Math.random() * images.length);
-      return $scope.wordImageURL = $scope.folderPath + "/" + word + "/" + randomIndex;
-    };
-    $scope.prevSentence = function() {
-      if (this.sentenceIndex === 0) {
-        return;
-      }
-      $scope.stop();
-      this.sentenceIndex--;
-      this.sentence = this.story.sentences[this.sentenceIndex];
-      this.isStart = this.sentenceIndex === 0;
-      return this.isEnd = this.sentenceIndex === this.story.sentences.length - 1;
-    };
-    $scope.nextSentence = function() {
-      if (this.sentenceIndex === this.story.sentences.length - 1) {
-        return;
-      }
-      $scope.stop();
-      this.sentenceIndex++;
-      this.sentence = this.story.sentences[this.sentenceIndex];
-      this.isStart = false;
-      return this.isEnd = this.sentenceIndex === this.story.sentences.length - 1;
-    };
-    $scope.stop = function() {
-      if ($scope.playing) {
-        $scope.playing = void 0;
-        if ($scope.media) {
-          $scope.media.stop();
-        }
-      }
-      if ($scope.recording) {
-        if ($scope.media) {
-          $scope.media.stopRecord();
-          $scope.recording = void 0;
-        }
-      }
-      if ($scope.media) {
-        return $scope.media.release();
+    $scope.prevPage = function() {
+      if ($scope.pageIndex > 0) {
+        $scope.pageIndex--;
+        return $scope.showPage();
       }
     };
-    $scope.end = function() {
-      $scope.stop();
-      return $location.path('/');
-    };
-    $scope.edit = function() {
-      $scope.stop();
-      return $location.path("edit/" + $scope.story.id);
-    };
-    $scope.loadImagesFor = function(word) {
-      $scope.selectingImgFor = word.toLowerCase();
-      return $http.get("https://www.googleapis.com/customsearch/v1?key=" + appKey + "&cx=" + engineKey + "&searchType=image&q=" + word).error(function(data, status, headers, config) {
-        return $scope.error = "Unable to get the images";
-      }).success(function(data, status, headers, config) {
-        delete $scope.error;
-        $scope.imageResults = data.items;
-        console.log(_.pluck($scope.imageResults, 'link'));
-        console.log(_.pluck($scope.imageResults, 'thumbnailLink'));
-        return console.log($scope.imageResults);
-      });
-    };
-    $scope.prevWord = function() {};
-    $scope.prevImgResult = function() {};
-    $scope.nextImgResult = function() {};
-    $scope.toggleImage = function(img) {
-      var found, images, _base1, _name;
-      if (!$scope.selectingImgFor) {
-        return;
+    return $scope.showPage = function() {
+      var p, text, _i, _len;
+      if ($scope.pageIndex === void 0) {
+        $scope.pageIndex = 0;
       }
-      $scope.saveFiles = true;
-      if ((_base1 = $scope.wordImages)[_name = $scope.selectingImgFor] == null) {
-        _base1[_name] = [];
+      text = $scope.story.pages[$scope.pageIndex].text;
+      for (_i = 0, _len = punctuation.length; _i < _len; _i++) {
+        p = punctuation[_i];
+        text = S(text).replaceAll(p, " " + p + " ").s;
       }
-      images = $scope.wordImages[$scope.selectingImgFor];
-      found = _.find(images, function(i) {
-        return i === img.link;
-      });
-      if (found) {
-        return $scope.wordImages[$scope.selectingImgFor] = _.without(images, img.link);
-      } else {
-        return images.push(img.link);
-      }
-    };
-    $scope.closeImages = function() {
-      $scope.saveSelectedImages();
-      $scope.selectingImgFor = false;
-      return $scope.imageResults = [];
-    };
-    $scope.saveSelectedImages = function() {
-      var index, path, word;
-      if (!$scope.saveFiles || !$scope.selectingImgFor) {
-        if ($cordovaFile) {
-          log("saving files");
-          index = 0;
-          word = $scope.selectingImgFor;
-          path = $scope.folderPath + "/" + word;
-          $cordovaFile.createDir($scope.folderPath, word, true).then(function(error) {}, function(success) {
-            return async.eachSeries($scope.wordImages[word], function(imgUrl, next) {
-              return $scope.saveImage(path, index, imgUrl, next);
-            }, function(err) {
-              return console.log("All Done");
-            });
-          });
-        }
-      }
-      window.localStorage.setItem('wordImages', JSON.stringify($scope.wordImages));
-      return $scope.saveFiles = false;
-    };
-    $scope.saveImage = function(path, filename, imgUrl, callback) {
-      return $http.get(imgUrl).error(function(data, status, headers, config) {
-        console.log(error);
-        return callback();
-      }).success(function(data, status, headers, config) {
-        return $cordovaFile.writeFile(path, filename, data, true).then(function(success) {
-          console.log("Saved " + path + "/" + filename);
-          return callback();
-        }, function(error) {
-          console.log(error);
-          return callback();
-        });
-      });
-    };
-    $scope.imageSelected = function(img) {
-      return _.find($scope.wordImages[$scope.selectingImgFor], function(i) {
-        return i === img.link;
-      });
-    };
-    return $scope.getWordColor = function(word) {
-      var images;
-      if ($scope.imgOn) {
-        images = $scope.wordImages[word];
-        if (images && images.length > 0) {
-          return 'green';
-        }
-      }
-      if ($scope.recOn && recordings[word.toLowerCase()]) {
-        return 'green';
-      }
-      return 'white';
+      text = S(text).collapseWhitespace().s;
+      return $scope.words = text.split(" ");
     };
   };
 
@@ -265,6 +44,8 @@
 
   if (this.isPhoneGap) {
     services.push('$cordovaFile');
+    services.push('$cordovaFileTransfer');
+    services.push('$cordovaCamera');
   }
 
   StoryController.$inject = services;

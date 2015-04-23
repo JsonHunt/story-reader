@@ -1,0 +1,30 @@
+.story-edit-panel.column.fill
+	.text-section.column.pad
+		textarea.fill(
+			type='text' 
+			ng-model='page.text' 
+			placeholder="Page text" 
+			ng-change="onTextChanged()"			
+		)
+		textarea(
+			type='text' 
+			ng-model='story.page.text' 
+			placeholder="Page text"
+		)
+		.bar
+			.icon(tap="insert('.')") .
+			.icon(tap="insert(',')") ,
+			.icon(tap="insert('!')") !
+			.icon(tap="insert('?')") ?
+			.icon(tap="insert('\"')") "
+			i.fa.fa-undo(tap="undoWord()")
+			i.right.fa.fa-microphone(tap="recordText()")
+							
+	.page-image-section.pad.fill
+		.bar
+			.title Page Image
+			i.right.fa.fa-camera(tap="capturePageImage()")
+			i.right.fa.fa-search(tap="googlePageImage()")
+			i.right.fa.fa-file-image-o(tap="selectPageImage()")
+			i.right.fa.fa-trash(tap="deletePageImage()")
+		img.fill

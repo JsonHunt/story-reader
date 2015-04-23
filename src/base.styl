@@ -5,7 +5,7 @@ $verydark = #023E70
 
 html
 	height 100%
-	background-color black
+	background-color white
 
 body
 	padding 0
@@ -13,7 +13,9 @@ body
 	height 100%
 	display flex
 	flex-direction column
-	background-color black
+	background-color white
+	color black
+	font-family Arial,sans-serif
 	font-size 20px
 	overflow-y: auto
 
@@ -21,10 +23,23 @@ input[type='text'], textarea
 	padding 10px 15px
 	border-radius 2px
 	border 1px solid $medium
-	margin 10px
-	margin-bottom 0
+	// margin 3px
+	font-size 18px
+	// margin 10px
+	// margin-bottom 0
+	// background-color $verydark
+	// color white
+
+.floating-icon
+	
+
+.action-button
+	width 50px
+	height 50px
+	border-radius 50px
 	background-color $verydark
 	color white
+	border 1px solid $light
 
 .note
 	padding 20px
@@ -93,10 +108,12 @@ input[type='text'], textarea
 				flex 1
 				padding 15px 20px
 		>.header2
-			min-height 50px
+			min-height 40px
 			border-top 1px solid $verydark
 			justify-content flex-end
 			text-transform: none
+			>.icon
+				padding 0 15px
 		>.body
 			flex 1
 			display flex

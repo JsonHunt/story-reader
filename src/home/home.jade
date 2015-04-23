@@ -1,14 +1,21 @@
 .home.page
-	.header
-		.title STORY READER
-		i.right.icon.new-story.fa.fa-plus(tap="newStory()")
-	.body
-		.note(ng-show="stories.length == 0") SORRY, NO STORY
-		.list
-			.item(
-				ng-repeat="s in stories track by $index"
-				ng-click="selectStory(s)"
-			)
-				.title {{s.title}}
+	i.fa.fa-plus.action-button.new-story(tap='newStory()')
+	
+	.column.fill.scroll
+		.row(ng-repeat="s in stories") 
+			
+//- 	.list
+//- 		.item(
+//- 			ng-repeat="s in stories"
+//- 			ng-click="selectStory(s)"
+//- 		)
+//- 		i.icon.fa.fa-trash(tap="delete(s)")
+//- 			.title {{getTitle(s)}}
+	//- .header.header2(ng-show="showOptions")
+	//- 	.right.cap-toggle.center.icon(tap="toggleCaps()") {{capOn ? 'Abc' : 'ABC'}}
+	//- 	i.right.icon.new-story.fa.fa-plus(tap="newStory()")
+	//- .body
+		.note(ng-show="stories.length == 0") SORRY, NO STORIES
+		
 
 		

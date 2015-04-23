@@ -1,0 +1,103 @@
+.story.page
+	.header
+		//- i.left.icon.fa.fa-chevron-left(tap="back()")
+		.title(tap="showOptions = !showOptions") {{story.title}}
+		
+	.column.fill(
+		ng-if="showOptions"
+		ng-include="'edit/edit.html'"
+	)
+		//- .title(ng-if="edit=='text'") Edit Text
+		//- .title(ng-if="edit=='words'") Record words
+		//- .title(ng-if="edit=='words'") Record words
+		//- i.right.icon.fa.fa-book(
+		//- 	ng-class="{active: editStory}" 
+		//- 	tap="toggleStoryEdit()"
+		//- )
+		//- i.right.icon.fa.fa-file-o(
+		//- 	ng-class="{active: editPages}" 
+		//- 	tap="togglePagesEdit()"
+		//- )
+		.bar
+			i.right.fa.fa-trash(tap="deletePage()")
+			i.right.fa.fa-plus(tap="addPage()")
+		
+	.column.fill(
+		ng-if="!showOptions")
+		ng-include="'read/read.html'"
+	)
+		
+		//- i.right.icon.fa.fa-trash(tap="deleteSentence()")
+		//- i.right.icon.fa.fa-edit(tap="editSentence()")
+		//- i.right.icon.fa.fa-microphone(ng-class="{active: recOn}" tap="toggleRecording()")
+		//- i.right.icon.fa.fa-picture-o(ng-class="{active: imgOn}" tap="toggleImageSelect()")
+		//- i.right.icon.fa.fa-edit(tap="edit()")
+	
+	//- .body.column(ng-swipe-left="nextSentence()", ng-swipe-right="prevSentence()")
+	//- 	.column.fill(ng-if="showOptions")
+	//- 		div.column.fill(
+	//- 			ng-if="editStory"
+	//- 			ng-include="'story-edit/story-edit.html'"
+	//- 			ng-controller="storyEditController"
+	//- 		)
+	//- 		
+	//- 		div.column.fill(
+	//- 			ng-if="editPages"
+	//- 			ng-include="'pages-edit/pages-edit.html'"
+	//- 			ng-controller="pagesEditController"
+	//- 		)
+	//- 	.column.fill(ng-if="!showOptions")
+	//- 		.fill(ng-show="sentence && !selectingImgFor")
+	//- 			.sentence
+	//- 				span(
+	//- 					ng-repeat="word in sentence.words track by $index" 
+	//- 					tap='select(word)'
+	//- 				)
+	//- 					span.word(
+	//- 						ng-class='{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}' 
+	//- 						style="color: {{getWordColor(word)}}"
+	//- 					) {{word}}
+	//- 					span &nbsp;
+	//- 			img.word-image(ng-if="wordImageURL" ng-src="{{wordImageURL}}")
+	//- 			.sentence-image-area(ng-if="!wordImageURL")
+	//- 				img.sentence-image(
+	//- 					ng-if='sentenceImageURL' 
+	//- 					ng-src="{{sentenceImageURL}}"
+	//- 				)
+	//- 				img.sentence-image-placeholder(
+	//- 					ng-if='imgOn && !sentenceImageURL' 
+	//- 					ng-src="img/image-placeholder.jpg"
+	//- 				)
+	//- 				i.fa.fa-lg.fa-search(ng-if='imgOn' tap="removeSentenceImage()")
+	//- 				i.fa.fa-lg.fa-search(ng-if='imgOn' tap="enableSentenceImageSearch()")
+	//- 				i.fa.fa-lg.fa-camera(ng-if='imgOn' tap="captureSentenceImage()")
+	//- 					
+	//- 		.image-word-panel.column(ng-show="selectingImgFor")
+	//- 			.word-select.row
+	//- 				input.image-word.fill(
+	//- 					ng-model="wordQuery"
+	//- 					ng-enter="refreshWordImageResults()"
+	//- 				) 
+	//- 				i.fa.fa-refresh(tap='refreshWordImageResults()')
+	//- 				i.fa.fa-check(tap="closeImages()")
+	//- 					
+	//- 			.image-results.fill
+	//- 				span.image-result-frame(ng-repeat="res in imageResults")
+	//- 					i.fa.fa-2x.fa-check.selected(
+	//- 						ng-if="imageSelected(res)" 
+	//- 						ng-click="removeWordImage(res)"
+	//- 					)
+	//- 					img.image-result(					
+	//- 						ng-src="{{res.link}}"
+	//- 						ng-click="addWordImage(res)"
+	//- 					)
+	//- 			//- .image-paging.row
+	//- 			//- 	i.prev-img-page.fill.fa.fa-chevron-left(tap='prevImgResult()')
+	//- 			//- 	i.close-images.fill.fa.fa-check(tap="closeImages()")
+	//- 			//- 	i.next-img-page.fill.fa.fa-chevron-right(tap='nextImgResult()')
+	//- 				
+	//- 		//- div.row
+	//- 		//- 	.previous(ng-show='!isStart' tap='prevSentence()') <
+	//- 		//- 	.button.next(ng-show='!isEnd' tap='nextSentence()') >
+	//- 		//- 	.button.end(ng-show='isEnd' tap='end()') The End
+	//- 		//- 	div(ng-show="!sentence") This story has no content 

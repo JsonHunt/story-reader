@@ -5,11 +5,22 @@
       restrict: 'A',
       link: function(scope, elem, attr) {
         return elem.on('touchend', function(event) {
-          var _ref, _ref1;
+          var cooldown, _ref, _ref1;
+          if (cooldown) {
+            return;
+          }
+          cooldown = true;
           if (this.isPhoneGap && ((_ref = window.plugins) != null ? (_ref1 = _ref.deviceFeedback) != null ? _ref1.acoustic : void 0 : void 0)) {
             window.plugins.deviceFeedback.acoustic();
           }
+          $timeout(function() {
+            return scope.$apply(function() {
+              elem.removeClass('touched');
+              return cooldown = false;
+            });
+          }, 100);
           return scope.$apply(function() {
+            elem.addClass('touched');
             return scope.$eval(attr.tap);
           });
         });

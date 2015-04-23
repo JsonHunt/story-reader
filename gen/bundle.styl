@@ -5,7 +5,7 @@ $verydark = #023E70
 
 html
 	height 100%
-	background-color black
+	background-color white
 
 body
 	padding 0
@@ -13,7 +13,9 @@ body
 	height 100%
 	display flex
 	flex-direction column
-	background-color black
+	background-color white
+	color black
+	font-family Arial,sans-serif
 	font-size 20px
 	overflow-y: auto
 
@@ -21,10 +23,23 @@ input[type='text'], textarea
 	padding 10px 15px
 	border-radius 2px
 	border 1px solid $medium
-	margin 10px
-	margin-bottom 0
+	// margin 3px
+	font-size 18px
+	// margin 10px
+	// margin-bottom 0
+	// background-color $verydark
+	// color white
+
+.floating-icon
+	
+
+.action-button
+	width 50px
+	height 50px
+	border-radius 50px
 	background-color $verydark
 	color white
+	border 1px solid $light
 
 .note
 	padding 20px
@@ -93,10 +108,12 @@ input[type='text'], textarea
 				flex 1
 				padding 15px 20px
 		>.header2
-			min-height 50px
+			min-height 40px
 			border-top 1px solid $verydark
 			justify-content flex-end
 			text-transform: none
+			>.icon
+				padding 0 15px
 		>.body
 			flex 1
 			display flex
@@ -146,15 +163,57 @@ input[type='text'], textarea
 .fill
 	flex 1
 
-i.fa
-	display flex
-	justify-content center
-	align-items center
-
 .center
 	display flex
 	justify-content center
 	align-items center
+
+.vcenter
+	display flex
+	align-items center
+
+.hcenter
+	display flex
+	justify-content center
+
+i.fa, .icon
+	@extends .center
+
+.pad
+	padding 10px
+
+.bar
+	@extends .row
+	background-color $dark
+	color white
+	font-weight bold
+	align-items stretch
+	min-height 40px
+	// border-top 1px solid $verydark
+	// border-bottom 1px solid $verydark
+	i.fa, .icon
+		width 40px
+		color white
+		&.left
+			border-right 1px solid $verydark
+		&.right
+			border-left 1px solid $verydark
+		&.tapped
+			background-color $light
+		&.active
+			background-color $light
+		// &[tap]:hover
+		// 	background-color $medium
+	>.title
+		flex 1
+		padding-left 10px
+		@extends .vcenter
+
+.auto-scroll
+	overflow-y auto
+
+.scroll
+	overflow-y scroll
 
 .fa-stack
 	.fa-play.fa-stack-1x
@@ -167,14 +226,29 @@ i.fa
 .page
 	// background-image url("img/sky.jpg")
 	// background-size cover
-	background-color black
+	// background-color black
 
 .home.page
+	position relative
+	.new-story
+		position absolute
+		bottom 20px
+		right 20px
+		background-color $light
+		&.touched
+			background-color $medium
+
+
+	.cap-toggle
+		width 100px
+
 	.note
 		margin-top 50px
 	.list .item .title
-		color	white
+		// color	white
 		padding 20px 25px
+
+
 
 
 .recording.page
@@ -198,6 +272,31 @@ i.fa
 	.word-image
 		width 100%
 
+	.sentence-image
+		width 100%
+		min-height 50px
+		border 1px solid white
+
+	.sentence-image-placeholder
+		max-width 100%
+		max-height 100%
+
+	.sentence-image-area
+		padding 10px
+		position relative
+		.fa-search, .fa-camera
+			position: absolute;
+			top: 25px;
+			background-color: white;
+			padding: 15px;
+			border-radius: 4px;
+			border: 1px solid black;
+
+		.fa-search
+			right 25px
+		.fa-camera
+			right 85px
+
 	.word.capitalized
 		text-transform: uppercase
 		font-size 25px
@@ -219,9 +318,108 @@ i.fa
 			padding 15px
 
 		.image-word
-			border-left: 1px solid $dark
-			border-right: 1px solid $dark
+			// border-left: 1px solid $dark
+			// border-right: 1px solid $dark
+			// padding 15px
+			background-color: $medium;
+			color: white;
+			font-weight: bold;
+			margin: 5px;
+			padding: 10px;
+			border: 1px solid white;
+
+		.image-results
+			overflow-y scroll
+
+		.image-result-frame
+			position: relative
+			i.selected
+				position: absolute
+				z-index 1000
+				top 2
+				right 2
+				color green
+				background-color black
+
+			.image-result
+				width 100%
+				border-bottom 1px solid black
+				border-top 1px solid white
+
+
+.story.page
+
+	.active, .recorded
+		background-color green
+
+	.sentence
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding: 20px;
+
+	.word
+		color white
+		font-size 30px
+
+	.word-image
+		width 100%
+
+	.sentence-image
+		width 100%
+		min-height 50px
+		border 1px solid white
+
+	.sentence-image-placeholder
+		max-width 100%
+		max-height 100%
+
+	.sentence-image-area
+		padding 10px
+		position relative
+		.fa-search, .fa-camera
+			position: absolute;
+			top: 25px;
+			background-color: white;
+			padding: 15px;
+			border-radius: 4px;
+			border: 1px solid black;
+
+		.fa-search
+			right 25px
+		.fa-camera
+			right 85px
+
+	.word.capitalized
+		text-transform: uppercase
+		font-size 25px
+
+	.playing
+		text-decoration underline
+	.buttons
+		display flex
+		.previous, .next
+			flex 1
+			margin 0 1px
+
+	.image-word-panel
+		text-transform none
+		background-color $medium
+		border-top 1px solid $verydark
+		color white
+		i.fa
 			padding 15px
+
+		.image-word
+			// border-left: 1px solid $dark
+			// border-right: 1px solid $dark
+			// padding 15px
+			background-color: $medium;
+			color: white;
+			font-weight: bold;
+			margin: 5px;
+			padding: 10px;
+			border: 1px solid white;
 
 		.image-results
 			overflow-y scroll

@@ -86,4 +86,13 @@ module.exports = EditController = ($scope, $location, $routeParams,$timeout) ->
 		,100
 
 
+	$scope.searchForStoryImage = ()->
+		$scope.imageSearch = true
+		
+
+	$scope.captureStoryImage = ()->
+
+
+
+
 EditController.$inject = [ '$scope','$location', '$routeParams','$timeout']

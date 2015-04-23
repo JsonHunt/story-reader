@@ -4,7 +4,7 @@
 
   this.isPhoneGap = document.URL.indexOf('http://') === -1 && document.URL.indexOf('https://') === -1;
 
-  modules = ['ngRoute', 'oc.modal', 'ngMaterial', 'ngTouch'];
+  modules = ['ngRoute', 'ngTouch'];
 
   if (this.isPhoneGap) {
     modules.push('ngCordova');

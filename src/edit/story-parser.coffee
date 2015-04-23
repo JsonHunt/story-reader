@@ -12,7 +12,7 @@ class StoryParser
 		if !S(text).endsWith('.') or !S(text).endsWith('!') or !S(text).endsWith('?') or !S(text).endsWith('...')
 			text += '.'
 		storyReg = ///[\s\S]*?[\.\!\?](\.\.)?///gm
-		punctuation = [',','...','!','?',';','.',':','"']
+		punctuation = ['(',')',',','...','!','?',';','.',':','"']
 		for p in punctuation
 			text = S(text).replaceAll(p, " #{p} ")
 

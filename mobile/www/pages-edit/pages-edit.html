@@ -1,0 +1,21 @@
+
+<div class="pages-edit-panel column fill">
+  <div class="text-section column pad">
+    <div class="bar">
+      <div class="title">Page 1 of 12</div><i tap="prevPage()" class="right fa fa-chevron-left"></i><i tap="nextPage()" class="right fa fa-chevron-right"></i>
+    </div>
+    <textarea type="text" ng-model="story.page.text" placeholder="Page text"></textarea>
+    <div class="bar">
+      <div tap="insert('.')" class="icon">.</div>
+      <div tap="insert(',')" class="icon">,</div>
+      <div tap="insert('!')" class="icon">!</div>
+      <div tap="insert('?')" class="icon">?</div>
+      <div tap="insert('&quot;')" class="icon">"</div><i tap="undoWord()" class="fa fa-undo"></i>
+    </div>
+  </div>
+  <div class="page-image-section pad fill">
+    <div class="bar">
+      <div class="title">Page Image</div><i tap="capturePageImage()" class="right fa fa-camera"></i><i tap="googlePageImage()" class="right fa fa-search"></i><i tap="selectPageImage()" class="right fa fa-file-image-o"></i><i tap="deletePageImage()" class="right fa fa-trash"></i>
+    </div><img class="fill"/>
+  </div>
+</div>
