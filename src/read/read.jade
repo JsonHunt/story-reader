@@ -1,44 +1,16 @@
-.read.column(ng-swipe-left="nextPage()", ng-swipe-right="prevPage()")
-  .page
-    span(
-      ng-repeat="word in words" 
-      tap='select(word)'
-    )
-      span.word(
-        ng-class='{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}' 
-        style="color: {{getWordColor(word)}}"
-      ) {{word}}
-      span &nbsp;
-  img.word-image(ng-if="wordImageURL" ng-src="{{wordImageURL}}")
-  .sentence-image-area(ng-if="!wordImageURL")
-    img.sentence-image(
-      ng-if='sentenceImageURL' 
-      ng-src="{{sentenceImageURL}}"
-    )
-    img.sentence-image-placeholder(
-      ng-if='imgOn && !sentenceImageURL' 
-      ng-src="img/image-placeholder.jpg"
-    )
-    i.fa.fa-lg.fa-search(ng-if='imgOn' tap="removeSentenceImage()")
-    i.fa.fa-lg.fa-search(ng-if='imgOn' tap="enableSentenceImageSearch()")
-    i.fa.fa-lg.fa-camera(ng-if='imgOn' tap="captureSentenceImage()")
-      
-.image-word-panel.column(ng-show="selectingImgFor")
-  .word-select.row
-    input.image-word.fill(
-      ng-model="wordQuery"
-      ng-enter="refreshWordImageResults()"
-    ) 
-    i.fa.fa-refresh(tap='refreshWordImageResults()')
-    i.fa.fa-check(tap="closeImages()")
-      
-  .image-results.fill
-    span.image-result-frame(ng-repeat="res in imageResults")
-      i.fa.fa-2x.fa-check.selected(
-        ng-if="imageSelected(res)" 
-        ng-click="removeWordImage(res)"
-      )
-      img.image-result(					
-        ng-src="{{res.link}}"
-        ng-click="addWordImage(res)"
-      )
+.read.column
+	.page-text-area.center
+		span(
+			ng-repeat="word in page.words" 
+			tap='read(word)'
+		)
+			span.word(
+				ng-class="{'all-caps':allCaps, playing: isWordPlaying(word)}"
+				style="color: {{getWordColor(word)}}"
+			) {{word}}
+			span &nbsp;
+	
+	.image-area.fill
+		img.page-image(ng-src="{{pageImageURL}}")
+		img.word-image(ng-src="{{wordImageURL}}")
+	

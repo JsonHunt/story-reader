@@ -10,12 +10,12 @@ exports.tap = ($timeout) ->
 					window.plugins.deviceFeedback.acoustic()
 				$timeout ()->
 					scope.$apply ()->
-						elem.removeClass 'touched'
+						elem.removeClass 'tapped'
 						cooldown = false
 				,100
 
 				scope.$apply ()->
-					elem.addClass 'touched'
+					elem.addClass 'tapped'
 					scope.$eval attr.tap
 	}
 

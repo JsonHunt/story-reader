@@ -15,12 +15,12 @@
           }
           $timeout(function() {
             return scope.$apply(function() {
-              elem.removeClass('touched');
+              elem.removeClass('tapped');
               return cooldown = false;
             });
           }, 100);
           return scope.$apply(function() {
-            elem.addClass('touched');
+            elem.addClass('tapped');
             return scope.$eval(attr.tap);
           });
         });

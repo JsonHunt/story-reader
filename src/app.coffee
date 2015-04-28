@@ -6,6 +6,7 @@ modules = [
 	# 'ui.bootstrap'
 	# 'ngMaterial'
 	'ngTouch'
+	'monospaced.elastic'
 ]
 
 if @isPhoneGap
@@ -16,7 +17,6 @@ app = angular.module 'PublicApp', modules
 app.controller 'IndexController', require './index-controller'
 app.directive 'tap', require('./directives').tap
 app.directive 'ngEnter', require('./directives').enter
-
 
 app.config ['$httpProvider','$routeProvider', ($httpProvider,$routeProvider) ->
 

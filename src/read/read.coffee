@@ -1,23 +1,20 @@
+storyService = require './../story-service'
+mediaService = require './../media-service'
+wordService =
+	getWord: (text)-> return undefined
+
 module.exports = ['$scope',($scope)->
 
-	$scope.pageIndex = 0
-	punctuation = ['(',')',',','...','!','?',';','.',':','"']
+	$scope.read = (text)->
+		return if _.contains $scope.punctuation, text
+		@word = storyService.getWord text
+		if @word is undefined
+			@word = wordService.getWord text
+		if @word
+			mediaService.play @word.recordingPath, ()-> $scope.$apply ()-> delete $scope.word
 
-	$scope.nextPage = ()->
-		if $scope.pageIndex < $scope.story.pages -1
-			$scope.pageIndex++
-			$scope.showPage()
+		@reading = text
+		@wordImageURL = mediaService.getURL(@word.imagePath)
 
-	$scope.prevPage = ()->
-		if $scope.pageIndex > 0
-			$scope.pageIndex--
-			$scope.showPage()
-
-	$scope.showPage = ()->
-		$scope.pageIndex = 0 if $scope.pageIndex is undefined
-		text = $scope.story.pages[$scope.pageIndex].text
-		for p in punctuation
-			text = S(text).replaceAll(p," #{p} ").s
-		text = S(text).collapseWhitespace().s
-		$scope.words = text.split(" ")	
+	$scope.closeImage = ()-> delete @wordImageURL
 ]

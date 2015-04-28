@@ -1,35 +1,107 @@
+storyService = require './../story-service'
+mediaService = require './../media-service'
+
 module.exports = StoryController = ($scope, $location, $routeParams, $timeout, $http, $cordovaFile, $cordovaFileTransfer, $cordovaCamera) ->
+	# $scope.editController = require './../edit/edit'
+	# $scope.readController = require './../read/read'
 
-	$scope.editController = require './../edit/edit'
-	$scope.readController = require './../read/read'
+	console.log "Story ID: #{$routeParams.id}"
+	storyService.selectStory parseInt($routeParams.id)
 
-	console.log $routeParams.id
-
-	$scope.storyID = storyID = $routeParams.id
-	$scope.pages = $scope.load "story-pages-#{storyID}"
+	$scope.pages = storyService.getPages()
 	$scope.pageIndex = 0
-	$scope.isEnd = $scope.story.pages.length is 1
-	$scope.isStart = true
+	$scope.page = $scope.pages[0]
+	$scope.mode = 'read'
 
-	punctuation = ['(',')',',','...','!','?',';','.',':','"']
+	$scope.isStart = ()-> $scope.pageIndex is 0
+	$scope.isEnd = ()-> $scope.pageIndex + 1 >= $scope.pages.length
+
+	$scope.stopMedia = ()-> mediaService.stop()
 
 	$scope.nextPage = ()->
-		if $scope.pageIndex < $scope.story.pages -1
+		mediaService.stop()
+		if not @isEnd()
 			$scope.pageIndex++
-			$scope.showPage()
+			$scope.page = $scope.pages[$scope.pageIndex]
 
 	$scope.prevPage = ()->
-		if $scope.pageIndex > 0
+		mediaService.stop()
+		if not @isStart()
 			$scope.pageIndex--
-			$scope.showPage()
+			$scope.page = $scope.pages[$scope.pageIndex]
 
-	$scope.showPage = ()->
-		$scope.pageIndex = 0 if $scope.pageIndex is undefined
-		text = $scope.story.pages[$scope.pageIndex].text
-		for p in punctuation
-			text = S(text).replaceAll(p," #{p} ").s
-		text = S(text).collapseWhitespace().s
-		$scope.words = text.split(" ")
+	$scope.home = ()->
+		$scope.goto('')
+
+	$scope.toggleOptions = ()->
+		mediaService.stop()
+		$scope.options = not $scope.options
+
+	$scope.toggleEditPageText = ()->
+		$scope.textEdit = not $scope.textEdit
+		if $scope.textEdit
+			setTimeout ()->
+				$('#pagetext').focus()
+			,50
+
+	$scope.toggleEditMode = ()->
+		if $scope.mode == 'edit'
+			$scope.mode = 'read'
+		else
+			$scope.mode='edit'
+
+	$scope.deletePage = ()->
+		return if $scope.pages.length is 1
+		storyService.removePage $scope.page.id
+		$scope.confirmDeletePage = false
+		if $scope.pageIndex >= $scope.pages.length
+			$scope.pageIndex--
+		$scope.page = $scope.pages[$scope.pageIndex]
+
+	$scope.addPage = ()->
+		pageNumber = $scope.pages.length + 1
+		storyService.addPage "Page #{pageNumber}"
+		$scope.nextPage()
+		setTimeout ()->
+			$('#pagetext').focus()
+		,50
+
+	$scope.savePage = ()->
+		storyService.savePage $scope.page
+		# $scope.saving = true
+		# for wrd in $scope.page.words
+		# 	if
+		console.log "Page saved"
+		$scope.textEdit = false
+
+	$scope.googleImage = ()->
+		$scope.imageSearch = true
+
+	$scope.selectImage = ()->
+		$scope.imageSearch = false
+
+	# $scope.select = (word)->
+	# 	return if _.contains $scope.punctuation, text
+	# 	@word = storyService.getWord word
+	# 	@wordImageURL = mediaService.getURL(@word.imagePath)
+	# 	$scope.read(word) if not $scope.showOptions
+
+
+
+	$scope.read = (word)->
+		mediaService.stop()
+		return if word is undefined
+		if @reading is word
+			delete reading
+
+		else
+			@reading = word
+			mediaService.play @word.recordingPath, ()-> $scope.$apply ()-> delete $scope.word
+
+
+
+
+
 
 
 	# $scope.recOn = $routeParams.rec

@@ -1,17 +1,33 @@
-.edit.page
-	.header(ng-hide="keyboard")
-		i.left.icon.fa.fa-chevron-left.back-button(ng-click="goto('home')")
-		.title Edit Story
-		//- i.right.icon.record.fa.fa-lg.fa-microphone(tap="goto('record')")
-		i.right.icon.delete.fa.fa-lg.fa-trash-o(tap="showOptions = !showOptions")
-	.header.header2(ng-show="showOptions")
-		.button.delete(tap="delete()") DELETE
-		.button.cancel(tap="showOptions = !showOptions") CANCEL
-	.body
-		div.row
-			input.title.fill(type='text' ng-model='story.title' placeholder="Title" ng-enter='titleEnter()')
-			i.fa.fa-search(ng-click="searchForStoryImage()")
-			i.fa.fa-camera(ng-click="captureStoryImage()")
-		textarea.story(ng-model='story.text' placeholder="The story" ng-enter='textEnter()')
-	.footer(ng-hide="keyboard")
-		.button.save(tap='save()') Save
+//- .edit.page
+//- 	.header(ng-hide="keyboard")
+//- 		i.left.icon.fa.fa-chevron-left.back-button(ng-click="goto('home')")
+//- 		.title Edit Story
+//- 		//- i.right.icon.record.fa.fa-lg.fa-microphone(tap="goto('record')")
+//- 		
+//- 	.header.header2(ng-show="showOptions")
+//- 		.button.delete(tap="delete()") DELETE
+//- 		.button.cancel(tap="showOptions = !showOptions") CANCEL
+//- 	.body
+//- 		div.row
+//- 			input.title.fill(type='text' ng-model='story.title' placeholder="Title" ng-enter='titleEnter()')
+//- 			i.fa.fa-search(ng-click="searchForStoryImage()")
+//- 			i.fa.fa-camera(ng-click="captureStoryImage()")
+//- 		textarea.story(ng-model='story.text' placeholder="The story" ng-enter='textEnter()')
+//- 	.footer(ng-hide="keyboard")
+//- 		.button.save(tap='save()') Save
+
+.edit.column
+	.page-text-area.center
+		span(
+			ng-repeat="word in page.words" 
+			tap='read(word)'
+		)
+			span.word(
+				ng-class="{'all-caps':allCaps, playing: isWordPlaying(word)}"
+				style="color: {{getWordColor(word)}}"
+			) {{word}}
+			span &nbsp;
+	
+	.image-area.fill
+		img.page-image(ng-src="{{pageImageURL}}")
+		img.word-image(ng-src="{{wordImageURL}}")

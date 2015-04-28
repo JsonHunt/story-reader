@@ -1,6 +1,14 @@
 
-<div class="home page"><i tap="newStory()" class="fa fa-plus action-button new-story"></i>
-  <div class="column fill scroll">
-    <div ng-repeat="s in stories" class="row"> </div>
+<div class="home page">
+  <div tap="showOptions = !showOptions" class="bar">
+    <div class="title">{{appTitle}}		</div>
+  </div>
+  <div ng-if="showOptions == true" class="bar">
+    <div tap="newStory()" class="title center"><i class="fa fa-plus"></i><span>Add New Story</span></div>
+  </div>
+  <div class="list">
+    <div ng-repeat="s in stories track by $index" class="item"> 
+      <div ng-click="select(s)" class="title">{{s.title}}</div><i ng-if="showOptions" ng-click="remove(s)" class="fa fa-trash"></i>
+    </div>
   </div>
 </div>

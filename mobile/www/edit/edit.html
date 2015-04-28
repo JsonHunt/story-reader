@@ -1,19 +1,5 @@
 
-<div class="edit page">
-  <div ng-hide="keyboard" class="header"><i ng-click="goto('home')" class="left icon fa fa-chevron-left back-button"></i>
-    <div class="title">Edit Story</div><i tap="showOptions = !showOptions" class="right icon delete fa fa-lg fa-trash-o"></i>
-  </div>
-  <div ng-show="showOptions" class="header header2">
-    <div tap="delete()" class="button delete">DELETE</div>
-    <div tap="showOptions = !showOptions" class="button cancel">CANCEL</div>
-  </div>
-  <div class="body">
-    <div class="row">
-      <input type="text" ng-model="story.title" placeholder="Title" ng-enter="titleEnter()" class="title fill"/><i ng-click="searchForStoryImage()" class="fa fa-search"></i><i ng-click="captureStoryImage()" class="fa fa-camera"></i>
-    </div>
-    <textarea ng-model="story.text" placeholder="The story" ng-enter="textEnter()" class="story"></textarea>
-  </div>
-  <div ng-hide="keyboard" class="footer">
-    <div tap="save()" class="button save">Save</div>
-  </div>
+<div class="edit column">
+  <div class="page-text-area center"><span ng-repeat="word in page.words" tap="read(word)"><span ng-class="{'all-caps':allCaps, playing: isWordPlaying(word)}" style="color: {{getWordColor(word)}}" class="word">{{word}}</span><span>&nbsp;</span></span></div>
+  <div class="image-area fill"><img ng-src="{{pageImageURL}}" class="page-image"/><img ng-src="{{wordImageURL}}" class="word-image"/></div>
 </div>

@@ -1,36 +1,23 @@
-.row
-	display flex
-	flex-direction row
-
-.column
-	display flex
-	flex-direction column
-
-.fill
-	flex 1
-
-.center
-	display flex
-	justify-content center
-	align-items center
-
-.vcenter
-	display flex
-	align-items center
-
-.hcenter
-	display flex
-	justify-content center
-
-i.fa, .icon
-	@extends .center
-
-.pad
-	padding 10px
+.list
+	@extends .column
+	@extends .scroll
+	@extends .fill
+	.item
+		@extends .row
+		height 60px
+		border-bottom: 1px solid $light
+		.title
+			@extends .fill
+			@extends .vcenter
+			padding 0 10px
+		i.fa
+			width 60px
+			border-left 1px solid $light
 
 .bar
 	@extends .row
 	background-color $dark
+	border-bottom 1px solid $light
 	color white
 	font-weight bold
 	align-items stretch
@@ -54,9 +41,3 @@ i.fa, .icon
 		flex 1
 		padding-left 10px
 		@extends .vcenter
-
-.auto-scroll
-	overflow-y auto
-
-.scroll
-	overflow-y scroll

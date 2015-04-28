@@ -1,11 +1,5 @@
 
-<div ng-swipe-left="nextPage()" ng-swipe-right="prevPage()" class="read column">
-  <div class="page"><span ng-repeat="word in words" tap="select(word)"><span ng-class="{capitalized: capOn, playing: playing == word.toLowerCase() || recording == word.toLowerCase()}" style="color: {{getWordColor(word)}}" class="word">{{word}}</span><span>&nbsp;</span></span></div><img ng-if="wordImageURL" ng-src="{{wordImageURL}}" class="word-image"/>
-  <div ng-if="!wordImageURL" class="sentence-image-area"><img ng-if="sentenceImageURL" ng-src="{{sentenceImageURL}}" class="sentence-image"/><img ng-if="imgOn &amp;&amp; !sentenceImageURL" ng-src="img/image-placeholder.jpg" class="sentence-image-placeholder"/><i ng-if="imgOn" tap="removeSentenceImage()" class="fa fa-lg fa-search"></i><i ng-if="imgOn" tap="enableSentenceImageSearch()" class="fa fa-lg fa-search"></i><i ng-if="imgOn" tap="captureSentenceImage()" class="fa fa-lg fa-camera"></i></div>
-</div>
-<div ng-show="selectingImgFor" class="image-word-panel column">
-  <div class="word-select row">
-    <input ng-model="wordQuery" ng-enter="refreshWordImageResults()" class="image-word fill"/><i tap="refreshWordImageResults()" class="fa fa-refresh"></i><i tap="closeImages()" class="fa fa-check"></i>
-  </div>
-  <div class="image-results fill"><span ng-repeat="res in imageResults" class="image-result-frame"><i ng-if="imageSelected(res)" ng-click="removeWordImage(res)" class="fa fa-2x fa-check selected"></i><img ng-src="{{res.link}}" ng-click="addWordImage(res)" class="image-result"/></span></div>
+<div class="read column">
+  <div class="page-text-area center"><span ng-repeat="word in page.words" tap="read(word)"><span ng-class="{'all-caps':allCaps, playing: isWordPlaying(word)}" style="color: {{getWordColor(word)}}" class="word">{{word}}</span><span>&nbsp;</span></span></div>
+  <div class="image-area fill"><img ng-src="{{pageImageURL}}" class="page-image"/><img ng-src="{{wordImageURL}}" class="word-image"/></div>
 </div>
