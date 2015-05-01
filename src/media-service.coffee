@@ -5,11 +5,11 @@ class MediaService
 	getURL: (path)-> fileService.getURL(path)
 
 	play: (path,callback)=>
-		url = fileService.getURL(path)
-		done = ()=>
-			@stop()
-			callback()
-		@media = new Media(url, done, done)
+		url = path #fileService.getURL(path)
+		# done = ()=>
+		# 	# @stop()
+		# 	callback()
+		@media = new Media(url, callback, callback)
 		@media.play()
 		@playing = path
 

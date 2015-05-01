@@ -1,4 +1,5 @@
 storage = require './storage-service'
+fileService = require './file-service'
 S = require 'string'
 
 class StoryService
@@ -7,7 +8,12 @@ class StoryService
 
 	constructor: ()->
 		@stories = storage.loadArray 'stories'
+		@words = storage.load 'words'
+		console.log JSON.stringify(@words, null,2)
 
+	initialize: (http)-> @http = htt
+
+	getWords: ()=> @words
 	getStories: ()=> @stories
 	resetStories: ()=>
 		@stories = []
@@ -64,7 +70,24 @@ class StoryService
 			@story.imageURL = page.localImageURL
 			storage.save 'stories', @stories
 
-
+		console.log JSON.stringify(@words, null,2)
+		async.eachSeries page.words, (word,next)=>
+			# if _.isString @words[word]
+			# 	delete @words[word]
+			w = storage.load "word-#{word}"
+			if w.text is undefined
+				w.text = word
+				storage.save "word-#{word}", w
+			if !_.contains(@punctuation, word) and w.audioURL is undefined
+				url = "http://translate.google.com/translate_tts?tl=en&q=#{word}"
+				filename = "words/#{word}.mp3"
+				fileService.downloadFile url,filename, (path)=>
+					w.audioURL = path
+					storage.save "word-#{word}", w
+					next()
+			else next()
+		, (err)=>
+			console.log 'All words saved'
 
 
 

@@ -2,9 +2,10 @@ class ImageSearchService
 	appKey: "AIzaSyB83ol3E5p9fUSQPapia3TbwhAPVzLt2t8"
 	engineKey: "015762953028935180710:bgwcqasc418"
 
-	initialize: (http,cordovaFileT)=>
+	initialize: (http,cordovaFileT,camera)=>
 		@http = http
 		@cordovaFileT = cordovaFileT
+		@cordovaCamera = camera
 		console.log "Cordova file transfer is: " + @cordovaFileT
 
 	findImagesFor: (query, callback)=>
@@ -39,6 +40,29 @@ class ImageSearchService
 			(error)->
 				console.log "ERROR: " + JSON.stringify(error,null,2)
 				callback()
+		)
+
+	captureImage: (callback)=>
+		# if $scope.imgOn
+		options =
+			quality: 50
+			destinationType: Camera.DestinationType.FILE_URI
+			sourceType: Camera.PictureSourceType.CAMERA
+			allowEdit: false
+			encodingType: Camera.EncodingType.JPEG
+			targetWidth: 400
+			targetHeight: 400
+			popoverOptions: CameraPopoverOptions
+			saveToPhotoAlbum: false
+
+		console.log "Switching to camera"
+		@cordovaCamera.getPicture(options).then(
+			(imageData)->
+				console.log "CAPTURED IMAGE TO #{imageData}"
+				callback imageData
+			(error)->
+
+				console.log "CAMERA ERROR: #{error}"; callback()
 		)
 
 module.exports = new ImageSearchService()

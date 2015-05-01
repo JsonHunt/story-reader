@@ -17,8 +17,9 @@
       <div ng-show="textEdit" tap="savePage()" class="button center">SAVE</div>
     </div>
     <div ng-show="!textEdit" class="fill column">
-      <div ng-show="page.imageURL || wordImageURL || options" class="image-area fill"><img ng-show="page.localImageURL" ng-src="{{page.localImageURL}}" class="page-image"/><img ng-src="{{wordImageURL}}" class="word-image"/><img ng-show="!page.imageURL &amp;&amp; !wordImageURL" src="img/placeholder.png" class="image-placeholder"/>
-        <div ng-show="options" class="float top right"><i ng-click="googleImage()" class="fa fa-search"></i><i ng-click="selectImage()" class="fa fa-file-picture-o"></i><i ng-click="captureImage()" class="fa fa-camera"></i></div>
+      <div ng-show="page.imageURL || wordImageURL || options" class="image-area fill"><img ng-show="!editWord &amp;&amp; !reading &amp;&amp; page.localImageURL" ng-src="{{page.localImageURL}}" class="page-image"/><img ng-show="editWord || (reading &amp;&amp; reading.localImageURL)" ng-src="{{reading ? reading.localImageURL : editWord.localImageURL}}" class="word-image"/><img ng-show="!page.localImageURL &amp;&amp; !editWord &amp;&amp; !editWord.localImageURL" src="img/placeholder.png" class="image-placeholder"/>
+        <div ng-show="options" class="float top right"><i ng-click="googleImage()" class="fa fa-search"></i><i ng-click="captureImage()" class="fa fa-camera"></i><i ng-click="deletePageImage()" class="fa fa-trash-o"></i>
+        </div>
       </div>
       <div ng-show="confirmDeletePage" class="bar">
         <div tap="deletePage()" class="center fill">DELETE</div>

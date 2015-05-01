@@ -9,14 +9,6 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Media\"><param name=\"android-package\" value=\"org.apache.cordova.media.AudioHandler\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"com.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -29,15 +21,19 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"SpeechRecognition\"><param name=\"android-package\" value=\"org.apache.cordova.speech.SpeechRecognition\" /></feature>",
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Media\"><param name=\"android-package\" value=\"org.apache.cordova.media.AudioHandler\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -52,7 +48,7 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
-                            "count": 2
+                            "count": 1
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />",
@@ -68,31 +64,27 @@
         }
     },
     "installed_plugins": {
-        "org.apache.cordova.media": {
-            "PACKAGE_NAME": "com.integral.mobile"
-        },
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.integral.mobile"
+            "PACKAGE_NAME": "com.integral.bookreader"
         },
         "cz.Velda.cordova.plugin.devicefeedback": {
-            "PACKAGE_NAME": "com.integral.mobile"
+            "PACKAGE_NAME": "com.integral.bookreader"
         },
         "org.apache.cordova.battery-status": {
-            "PACKAGE_NAME": "com.integral.mobile"
-        },
-        "org.apache.cordova.file-transfer": {
             "PACKAGE_NAME": "com.integral.bookreader"
         },
         "org.apache.cordova.camera": {
             "PACKAGE_NAME": "com.integral.bookreader"
         },
-        "org.apache.cordova.speech.speechrecognition": {
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "com.integral.bookreader"
+        },
+        "org.apache.cordova.file-transfer": {
+            "PACKAGE_NAME": "com.integral.bookreader"
+        },
+        "org.apache.cordova.media": {
             "PACKAGE_NAME": "com.integral.bookreader"
         }
     },
-    "dependent_plugins": {
-        "org.apache.cordova.file": {
-            "PACKAGE_NAME": "com.integral.mobile"
-        }
-    }
+    "dependent_plugins": {}
 }

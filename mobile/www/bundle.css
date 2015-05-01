@@ -510,7 +510,8 @@ i.refresh-search {
   margin: 20%;
   width: 60%;
 }
-.image-area .page-image {
+.image-area .page-image,
+.image-area .word-image {
   width: 95%;
   margin: 2.5%;
   max-height: 100%;
@@ -540,6 +541,9 @@ i.refresh-search {
 }
 .float i.fa.active {
   background-color: #42adff;
+}
+.playing {
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=bundle.css.map */

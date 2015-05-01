@@ -1,11 +1,11 @@
 fileService = require './file-service'
 imageService = require './image-service'
 
-module.exports = IndexController = ($scope,$location, $http, $cordovaFile, $cordovaFileTransfer) ->
+module.exports = IndexController = ($scope,$location, $http, $cordovaFile, $cordovaFileTransfer,$cordovaCamera) ->
 
 
-	fileService.initialize()
-	imageService.initialize($http,$cordovaFileTransfer)
+	fileService.initialize($cordovaFileTransfer)
+	imageService.initialize($http,$cordovaFileTransfer,$cordovaCamera)
 
 	$scope.appTitle = "Story Reader"
 	$scope.punctuation = ['(',')',',','...','!','?',';','.',':','"']
@@ -18,9 +18,9 @@ module.exports = IndexController = ($scope,$location, $http, $cordovaFile, $cord
 	$scope.log = (toLog)->
 		console.log JSON.stringify(toLog,null,2)
 
-	wordsString = window.localStorage.getItem("words")
-	wordsString ?= JSON.stringify([])
-	$scope.allWords = JSON.parse(wordsString)
+	# wordsString = window.localStorage.getItem("words")
+	# wordsString ?= JSON.stringify([])
+	# $scope.allWords = JSON.parse(wordsString)
 
 	window.addEventListener 'native.keyboardshow', (e)->
 		$scope.$apply ()->
@@ -39,6 +39,6 @@ module.exports = IndexController = ($scope,$location, $http, $cordovaFile, $cord
 
 
 # if @isPhoneGap
-IndexController.$inject = [ '$scope','$location','$http', '$cordovaFile','$cordovaFileTransfer']
+IndexController.$inject = [ '$scope','$location','$http', '$cordovaFile','$cordovaFileTransfer','$cordovaCamera']
 # else
 # 	IndexController.$inject = [ '$scope','$location','$http' ]

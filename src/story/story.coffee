@@ -88,9 +88,14 @@ module.exports = StoryController = ($scope, $rootScope, $location, $routeParams,
 
 	$scope.googleImage = ()->
 		$scope.imageSearch = true
-		$scope.imageQuery = $scope.page.text
-		imageService.findImagesFor $scope.imageQuery, (error,results)->
-			$scope.searchResults = results
+		if $scope.editWord
+			$scope.imageQuery = $scope.editWord.text
+			imageService.findImagesFor $scope.imageQuery, (error,results)->
+				$scope.searchResults = results
+		else
+			$scope.imageQuery = $scope.page.text
+			imageService.findImagesFor $scope.imageQuery, (error,results)->
+				$scope.searchResults = results
 
 	$scope.refreshImageSearch = ()->
 		imageService.findImagesFor $scope.imageQuery, (error,results)->
@@ -98,32 +103,54 @@ module.exports = StoryController = ($scope, $rootScope, $location, $routeParams,
 
 	$scope.selectImage = (img)->
 		$scope.imageSearch = false
-		$scope.page.imageURL = img.link
-		imageService.saveImage img.link, "image-#{$scope.page.id}.jpg", (localURL)->
-			$scope.page.localImageURL = localURL
-			$scope.savePage()
+
+		if $scope.editWord
+			$scope.editWord.imageURL = img
+			imageService.saveImage img.link, "word-#{$scope.editWord.text}.jpg", (localURL)->
+				$scope.editWord.localImageURL = localURL
+				storageService.save "word-#{$scope.editWord.text}", $scope.editWord
+		else
+			$scope.page.imageURL = img.link
+			imageService.saveImage img.link, "image-#{$scope.page.id}.jpg", (localURL)->
+				$scope.page.localImageURL = localURL
+				$scope.savePage()
 
 
 	$scope.select = (word)->
 		return if _.contains $scope.punctuation, word
-		@word = storyService.getWord word
-		@wordImageURL = mediaService.getURL(@word.imagePath)
-		$scope.read(word) if not $scope.showOptions
+
+		# @wordImageURL = mediaService.getURL(@word.imagePath)
+		if not $scope.options
+			$scope.read(word)
+		else
+			if $scope.editWord and $scope.editWord.text is word
+				delete $scope.editWord
+			else
+				$scope.editWord = storageService.load "word-#{word}"
 
 
+	$scope.isWordPlaying = (w)-> @reading and w.toLowerCase() is @reading.text.toLowerCase()
 
 	$scope.read = (word)->
 		mediaService.stop()
 		return if word is undefined
-		if @reading is word
+		if $scope.reading and $scope.reading.text is word
 			delete reading
-
 		else
-			@reading = word
-			mediaService.play @word.recordingPath, ()-> $scope.$apply ()-> delete $scope.word
+			$scope.reading = storageService.load "word-#{word}"
+			return if $scope.reading.audioURL is undefined
+			clearTimeout $scope.readTimer
+			$scope.readTimer = setTimeout ()->
+				$scope.$apply ()-> delete $scope.reading
+			,2000
+
+			mediaService.play $scope.reading.audioURL, ()->
 
 
 
+	$scope.getWordColor = (word)->
+		return 'green' if $scope.editWord and $scope.editWord.text is word
+		return 'black'
 
 
 
@@ -255,38 +282,19 @@ module.exports = StoryController = ($scope, $rootScope, $location, $routeParams,
 	# 		# 			document.getElementById("word-image").src = evt.target.result
 	# 		# 		reader.readAsDataURL(readyFile)
 	#
-	# $scope.captureImage = ()->
-	# 	if $scope.imgOn
-	# 		options =
-	# 			quality: 50
-	# 			destinationType: Camera.DestinationType.FILE_URI
-	# 			sourceType: Camera.PictureSourceType.CAMERA
-	# 			allowEdit: true
-	# 			encodingType: Camera.EncodingType.JPEG
-	# 			targetWidth: 400
-	# 			targetHeight: 400
-	# 			popoverOptions: CameraPopoverOptions
-	# 			saveToPhotoAlbum: false
-	#
-	# 		$cordovaCamera.getPicture(options).then(
-	# 			(imageData)->
-	# 				console.log "Picture taken in #{imageData}"
-	# 				# filename = $scope.story.id + "-" + $scope.sentenceIndex
-	# 				# $cordovaFile.writeFile($scope.folderPath,filename,imageData,true).then(
-	# 				# 	(success)->
-	# 				# 		console.log("Saved #{filename}")
-	# 				# 		$scope.sentenceImageURL = "#{$scope.folderPath}#{$scope.story.id}-#{$scope.sentenceIndex}"
-	# 				# 		console.log $scope.sentenceImageURL
-	# 				# 	(error)-> log(error)
-	# 				# )
-	# 				#moveFile(cordova.file.externalCacheDirectory, file, newPath, newFile)
-	# 				key = "#{$scope.story.id}-#{$scope.sentenceIndex}"
-	# 				$scope.sentenceImages[key] = imageData
-	# 				window.localStorage.setItem 'sentenceImages', JSON.stringify($scope.sentenceImages)
-	# 				$scope.getSentenceImage()
-	#
-	# 			(error)-> log error
-	# 		)
+	$scope.captureImage = (callback)->
+		imageService.captureImage (path)->
+			if $scope.editWord
+				$scope.editWord.localImageURL = path
+				storageService.save "word-#{$scope.editWord.text}", $scope.editWord
+			else
+				$scope.page.localImageURL = path
+				$scope.savePage()
+			# document.getElementById('#pageImage').src = $scope.page.imageURL
+
+	$scope.deletePageImage = ()->
+		delete $scope.page.localImageURL
+		$scope.savePage()
 	#
 	#
 	#

@@ -18,8 +18,13 @@ class StorageService
 
 	load: (key)->
 		value = window.localStorage.getItem(key)
-		return {} if value is null
-		return JSON.parse(value)
+		try
+			value ?= JSON.stringify({})
+			return JSON.parse(value)
+		catch e
+			console.log e
+			return {}
+
 
 	loadArray: (key)->
 		value = window.localStorage.getItem(key)

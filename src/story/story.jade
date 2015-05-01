@@ -43,13 +43,14 @@
 	
 		.fill.column(ng-show="!textEdit")
 			.image-area.fill(ng-show="page.imageURL || wordImageURL || options")
-				img.page-image(ng-show="page.localImageURL" ng-src="{{page.localImageURL}}")
-				img.word-image(ng-src="{{wordImageURL}}")
-				img.image-placeholder(ng-show="!page.imageURL && !wordImageURL" src="img/placeholder.png")
+				img.page-image(ng-show="!editWord && !reading && page.localImageURL" ng-src="{{page.localImageURL}}")
+				img.word-image(ng-show="editWord || (reading && reading.localImageURL)" ng-src="{{reading ? reading.localImageURL : editWord.localImageURL}}")
+				img.image-placeholder(ng-show="!page.localImageURL && !editWord && !editWord.localImageURL" src="img/placeholder.png")
 				.float.top.right(ng-show="options")
 					i.fa.fa-search(ng-click="googleImage()")
-					i.fa.fa-file-picture-o(ng-click="selectImage()")
+					//- i.fa.fa-file-picture-o(ng-click="selectImage()")
 					i.fa.fa-camera(ng-click="captureImage()")
+					i.fa.fa-trash-o(ng-click="deletePageImage()")
 			
 			.bar(ng-show="confirmDeletePage")
 				.center.fill(tap="deletePage()") DELETE
