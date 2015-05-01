@@ -1,10 +1,14 @@
 .image-search.column.fill(ng-show="imageSearch")
-	input.fill.image-query(ng-model="imageQuery")
-	.list
-		.item(ng-click="selectImage()")
-		.item(ng-click="selectImage()")
-		.item(ng-click="selectImage()")
-		.item(ng-click="selectImage()")
+	.row
+		input.image-query.fill(ng-model="imageQuery")
+		i.fa.fa-refresh.refresh-search(ng-click="refreshImageSearch()")
+	.list.search-results
+		img.item(
+			ng-repeat="image in searchResults track by $index" 
+			ng-click="selectImage(image)"
+			ng-src="{{image.link}}"
+		)
+		
 	
 .story.page(ng-hide="imageSearch")
 	.bar
@@ -32,19 +36,20 @@
 			textarea#pagetext(
 				ng-show="textEdit" 
 				ng-model="page.text" 
+				placeholder="Page {{pageIndex+1}}"
 				msd-elastic=""
 			)
 			.button.center(ng-show="textEdit" tap="savePage()") SAVE
 	
 		.fill.column(ng-show="!textEdit")
-			.image-area.fill.center(ng-show="pageImageURL || wordImageURL || options")
-				img.page-image(ng-src="{{pageImageURL}}")
+			.image-area.fill(ng-show="page.imageURL || wordImageURL || options")
+				img.page-image(ng-show="page.localImageURL" ng-src="{{page.localImageURL}}")
 				img.word-image(ng-src="{{wordImageURL}}")
-				img.image-placeholder(ng-show="!pageImageURL && !wordImageURL" src="img/placeholder.png")
+				img.image-placeholder(ng-show="!page.imageURL && !wordImageURL" src="img/placeholder.png")
 				.float.top.right(ng-show="options")
-					i.fa.fa-search(tap="googleImage()")
-					i.fa.fa-file-picture-o(tap="selectImage()")
-					i.fa.fa-camera(tap="captureImage()")
+					i.fa.fa-search(ng-click="googleImage()")
+					i.fa.fa-file-picture-o(ng-click="selectImage()")
+					i.fa.fa-camera(ng-click="captureImage()")
 			
 			.bar(ng-show="confirmDeletePage")
 				.center.fill(tap="deletePage()") DELETE

@@ -8,6 +8,7 @@
 			
 	.list
 		.item(ng-repeat="s in stories track by $index") 
+			img.thumb(ng-show="s.imageURL" ng-src="{{s.imageURL}}")
 			.title(ng-click='select(s)') {{s.title}}
 			i.fa.fa-trash(ng-if="showOptions" ng-click="remove(s)")
 			

@@ -1,12 +1,9 @@
 
 <div ng-show="imageSearch" class="image-search column fill">
-  <input ng-model="imageQuery" class="fill image-query"/>
-  <div class="list">
-    <div ng-click="selectImage()" class="item"></div>
-    <div ng-click="selectImage()" class="item"></div>
-    <div ng-click="selectImage()" class="item"></div>
-    <div ng-click="selectImage()" class="item"></div>
+  <div class="row">
+    <input ng-model="imageQuery" class="image-query fill"/><i ng-click="refreshImageSearch()" class="fa fa-refresh refresh-search"></i>
   </div>
+  <div class="list search-results"><img ng-repeat="image in searchResults track by $index" ng-click="selectImage(image)" ng-src="{{image.link}}" class="item"/></div>
 </div>
 <div ng-hide="imageSearch" class="story page">
   <div class="bar"><i tap="home()" class="fa fa-home"></i>
@@ -16,12 +13,12 @@
     <div class="page-text-area column">
       <div ng-show="options" class="float top right"><i tap="toggleEditPageText()" ng-hide="textEdit" class="fa fa-pencil"></i></div>
       <div ng-show="!textEdit" class="text"><span ng-repeat="word in page.words track by $index" tap="select(word)" class="word-outer"><span ng-class="{'all-caps':allCaps, playing: isWordPlaying(word)}" style="color: {{getWordColor(word)}}" class="word">{{word}}</span><span>&nbsp;</span></span></div>
-      <textarea id="pagetext" ng-show="textEdit" ng-model="page.text" msd-elastic=""></textarea>
+      <textarea id="pagetext" ng-show="textEdit" ng-model="page.text" placeholder="Page {{pageIndex+1}}" msd-elastic=""></textarea>
       <div ng-show="textEdit" tap="savePage()" class="button center">SAVE</div>
     </div>
     <div ng-show="!textEdit" class="fill column">
-      <div ng-show="pageImageURL || wordImageURL || options" class="image-area fill center"><img ng-src="{{pageImageURL}}" class="page-image"/><img ng-src="{{wordImageURL}}" class="word-image"/><img ng-show="!pageImageURL &amp;&amp; !wordImageURL" src="img/placeholder.png" class="image-placeholder"/>
-        <div ng-show="options" class="float top right"><i tap="googleImage()" class="fa fa-search"></i><i tap="selectImage()" class="fa fa-file-picture-o"></i><i tap="captureImage()" class="fa fa-camera"></i></div>
+      <div ng-show="page.imageURL || wordImageURL || options" class="image-area fill"><img ng-show="page.localImageURL" ng-src="{{page.localImageURL}}" class="page-image"/><img ng-src="{{wordImageURL}}" class="word-image"/><img ng-show="!page.imageURL &amp;&amp; !wordImageURL" src="img/placeholder.png" class="image-placeholder"/>
+        <div ng-show="options" class="float top right"><i ng-click="googleImage()" class="fa fa-search"></i><i ng-click="selectImage()" class="fa fa-file-picture-o"></i><i ng-click="captureImage()" class="fa fa-camera"></i></div>
       </div>
       <div ng-show="confirmDeletePage" class="bar">
         <div tap="deletePage()" class="center fill">DELETE</div>

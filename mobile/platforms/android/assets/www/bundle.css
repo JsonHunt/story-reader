@@ -264,8 +264,7 @@ textarea {
       -ms-flex-direction: row;
           flex-direction: row;
 }
-.column,
-.list {
+.column {
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -345,11 +344,11 @@ i.fa,
   overflow-y: scroll;
 }
 .list .item {
-  height: 60px;
+  min-height: 60px;
   border-bottom: 1px solid #80c6fc;
 }
 .list .item .title {
-  padding: 0 10px;
+  padding: 15px;
 }
 .list .item i.fa {
   width: 60px;
@@ -453,6 +452,10 @@ i.fa,
 .home.page .new-story.touched {
   background-color: #42adff;
 }
+.home.page .thumb {
+  max-width: 100px;
+  max-height: 100px;
+}
 .home.page .cap-toggle {
   width: 100px;
 }
@@ -461,6 +464,18 @@ i.fa,
 }
 .recording.page {
   color: #fff;
+}
+.image-query {
+  padding: 10px;
+  font-size: 20px;
+  font-family: Arial;
+  margin: 5px;
+}
+i.refresh-search {
+  width: 50px;
+}
+.search-results .item {
+  width: 100%;
 }
 .page-text-area {
   font-size: 30px;
@@ -492,6 +507,13 @@ i.fa,
 }
 .image-area .image-placeholder {
   border: 1px solid #808080;
+  margin: 20%;
+  width: 60%;
+}
+.image-area .page-image {
+  width: 95%;
+  margin: 2.5%;
+  max-height: 100%;
 }
 .float {
   position: absolute;

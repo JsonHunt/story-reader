@@ -1,7 +1,9 @@
 storyService = require './../story-service'
 mediaService = require './../media-service'
+imageService = require './../image-service'
+storageService = require './../storage-service'
 
-module.exports = StoryController = ($scope, $location, $routeParams, $timeout, $http, $cordovaFile, $cordovaFileTransfer, $cordovaCamera) ->
+module.exports = StoryController = ($scope, $rootScope, $location, $routeParams, $timeout, $http, $cordovaFile, $cordovaFileTransfer, $cordovaCamera) ->
 	# $scope.editController = require './../edit/edit'
 	# $scope.readController = require './../read/read'
 
@@ -11,7 +13,13 @@ module.exports = StoryController = ($scope, $location, $routeParams, $timeout, $
 	$scope.pages = storyService.getPages()
 	$scope.pageIndex = 0
 	$scope.page = $scope.pages[0]
-	$scope.mode = 'read'
+
+	if $rootScope.openInEditMode is true
+		$scope.textEdit = true
+		$rootScope.openInEditMode = false
+		setTimeout ()->
+			$('#pagetext').focus()
+		,50
 
 	$scope.isStart = ()-> $scope.pageIndex is 0
 	$scope.isEnd = ()-> $scope.pageIndex + 1 >= $scope.pages.length
@@ -60,7 +68,8 @@ module.exports = StoryController = ($scope, $location, $routeParams, $timeout, $
 
 	$scope.addPage = ()->
 		pageNumber = $scope.pages.length + 1
-		storyService.addPage "Page #{pageNumber}"
+		storyService.addPage ""
+		$scope.textEdit = true
 		$scope.nextPage()
 		setTimeout ()->
 			$('#pagetext').focus()
@@ -68,23 +77,38 @@ module.exports = StoryController = ($scope, $location, $routeParams, $timeout, $
 
 	$scope.savePage = ()->
 		storyService.savePage $scope.page
-		# $scope.saving = true
-		# for wrd in $scope.page.words
-		# 	if
+		# for word in $scope.page.words
+		# 	rec = storageService.load "word-#{word}"
+			# if rec.url is undefined
+			# 	mediaService.tts word
+
+
 		console.log "Page saved"
 		$scope.textEdit = false
 
 	$scope.googleImage = ()->
 		$scope.imageSearch = true
+		$scope.imageQuery = $scope.page.text
+		imageService.findImagesFor $scope.imageQuery, (error,results)->
+			$scope.searchResults = results
 
-	$scope.selectImage = ()->
+	$scope.refreshImageSearch = ()->
+		imageService.findImagesFor $scope.imageQuery, (error,results)->
+			$scope.searchResults = results
+
+	$scope.selectImage = (img)->
 		$scope.imageSearch = false
+		$scope.page.imageURL = img.link
+		imageService.saveImage img.link, "image-#{$scope.page.id}.jpg", (localURL)->
+			$scope.page.localImageURL = localURL
+			$scope.savePage()
 
-	# $scope.select = (word)->
-	# 	return if _.contains $scope.punctuation, text
-	# 	@word = storyService.getWord word
-	# 	@wordImageURL = mediaService.getURL(@word.imagePath)
-	# 	$scope.read(word) if not $scope.showOptions
+
+	$scope.select = (word)->
+		return if _.contains $scope.punctuation, word
+		@word = storyService.getWord word
+		@wordImageURL = mediaService.getURL(@word.imagePath)
+		$scope.read(word) if not $scope.showOptions
 
 
 
@@ -427,7 +451,7 @@ module.exports = StoryController = ($scope, $location, $routeParams, $timeout, $
 	# 	return 'white'
 
 
-services = [ '$scope','$location','$routeParams','$timeout','$http']
+services = [ '$scope','$rootScope','$location','$routeParams','$timeout','$http']
 
 if @isPhoneGap
 	services.push '$cordovaFile'

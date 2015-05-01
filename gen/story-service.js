@@ -102,7 +102,7 @@
       storage.save(this.pagesKey, this.pages);
       if (this.pages[0].id === page.id) {
         this.story.title = page.text;
-        this.story.imageURL = page.imageURL;
+        this.story.imageURL = page.localImageURL;
         return storage.save('stories', this.stories);
       }
     };

@@ -61,7 +61,7 @@ class StoryService
 
 		if @pages[0].id is page.id
 			@story.title = page.text
-			@story.imageURL = page.imageURL
+			@story.imageURL = page.localImageURL
 			storage.save 'stories', @stories
 
 

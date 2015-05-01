@@ -12,11 +12,13 @@ exports.tap = ($timeout) ->
 					scope.$apply ()->
 						elem.removeClass 'tapped'
 						cooldown = false
+						elem.addClass 'tapped'
+						scope.$eval attr.tap
 				,100
 
-				scope.$apply ()->
-					elem.addClass 'tapped'
-					scope.$eval attr.tap
+				# scope.$apply ()->
+				# 	elem.addClass 'tapped'
+				# 	scope.$eval attr.tap
 	}
 
 exports.enter = ()->

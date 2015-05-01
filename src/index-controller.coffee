@@ -1,8 +1,11 @@
 fileService = require './file-service'
+imageService = require './image-service'
 
-module.exports = IndexController = ($scope,$location, $cordovaFile) ->
+module.exports = IndexController = ($scope,$location, $http, $cordovaFile, $cordovaFileTransfer) ->
+
 
 	fileService.initialize()
+	imageService.initialize($http,$cordovaFileTransfer)
 
 	$scope.appTitle = "Story Reader"
 	$scope.punctuation = ['(',')',',','...','!','?',';','.',':','"']
@@ -35,7 +38,7 @@ module.exports = IndexController = ($scope,$location, $cordovaFile) ->
 
 
 
-if @isPhoneGap
-	IndexController.$inject = [ '$scope','$location','$cordovaFile']
-else
-	IndexController.$inject = [ '$scope','$location' ]
+# if @isPhoneGap
+IndexController.$inject = [ '$scope','$location','$http', '$cordovaFile','$cordovaFileTransfer']
+# else
+# 	IndexController.$inject = [ '$scope','$location','$http' ]

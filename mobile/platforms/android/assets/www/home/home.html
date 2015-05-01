@@ -7,7 +7,7 @@
     <div tap="newStory()" class="title center"><i class="fa fa-plus"></i><span>Add New Story</span></div>
   </div>
   <div class="list">
-    <div ng-repeat="s in stories track by $index" class="item"> 
+    <div ng-repeat="s in stories track by $index" class="item"> <img ng-show="s.imageURL" ng-src="{{s.imageURL}}" class="thumb"/>
       <div ng-click="select(s)" class="title">{{s.title}}</div><i ng-if="showOptions" ng-click="remove(s)" class="fa fa-trash"></i>
     </div>
   </div>

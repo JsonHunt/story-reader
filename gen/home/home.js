@@ -7,7 +7,7 @@
   storage = require('./../storage-service');
 
   module.exports = [
-    '$scope', function($scope) {
+    '$scope', '$rootScope', function($scope, $rootScope) {
       $scope.allCaps = storage.loadInt('allCaps');
       $scope.stories = service.getStories();
       $scope.select = function(s) {
@@ -17,7 +17,8 @@
         return service.removeStory(s);
       };
       $scope.newStory = function() {
-        return $scope.select(service.newStory("New Story"));
+        $rootScope.openInEditMode = true;
+        return $scope.select(service.newStory(""));
       };
       return $scope.toggleCaps = function() {
         $scope.capOn = !$scope.capOn;

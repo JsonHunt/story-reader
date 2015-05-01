@@ -13,16 +13,14 @@
           if (this.isPhoneGap && ((_ref = window.plugins) != null ? (_ref1 = _ref.deviceFeedback) != null ? _ref1.acoustic : void 0 : void 0)) {
             window.plugins.deviceFeedback.acoustic();
           }
-          $timeout(function() {
+          return $timeout(function() {
             return scope.$apply(function() {
               elem.removeClass('tapped');
-              return cooldown = false;
+              cooldown = false;
+              elem.addClass('tapped');
+              return scope.$eval(attr.tap);
             });
           }, 100);
-          return scope.$apply(function() {
-            elem.addClass('tapped');
-            return scope.$eval(attr.tap);
-          });
         });
       }
     };
